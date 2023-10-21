@@ -18,7 +18,7 @@ public class Conexao {
 			
 			conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
 			
-			System.out.println("Sucelso!!!");
+			System.out.println("Conectado!!!");
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Classe não encontrada!");
