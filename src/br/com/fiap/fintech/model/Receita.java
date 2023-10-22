@@ -7,7 +7,7 @@ import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
 public class Receita {
 
 	private int id;
-	//private int idContaEmpresa;
+	private ContaEmpresa ContaEmpresa;
 	private String nomeTransacao;
 	private TipoTransacaoEnum tipoTransacao;
 	private String descricaoTransacao;
@@ -15,11 +15,13 @@ public class Receita {
 	private LocalDate dataRegistro;
 	
 	public Receita(){}
-	
-	public Receita(int id, String nomeTransacao, TipoTransacaoEnum tipoTransacao, String descricaoTransacao, LocalDate dataTransacao,
+
+	public Receita(int id, br.com.fiap.fintech.model.ContaEmpresa contaEmpresa, String nomeTransacao,
+			TipoTransacaoEnum tipoTransacao, String descricaoTransacao, LocalDate dataTransacao,
 			LocalDate dataRegistro) {
 		super();
 		this.id = id;
+		ContaEmpresa = contaEmpresa;
 		this.nomeTransacao = nomeTransacao;
 		this.tipoTransacao = tipoTransacao;
 		this.descricaoTransacao = descricaoTransacao;
@@ -33,6 +35,14 @@ public class Receita {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ContaEmpresa getContaEmpresa() {
+		return ContaEmpresa;
+	}
+
+	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
+		ContaEmpresa = contaEmpresa;
 	}
 
 	public String getNomeTransacao() {
@@ -74,11 +84,13 @@ public class Receita {
 	public void setDataRegistro(LocalDate dataRegistro) {
 		this.dataRegistro = dataRegistro;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Receita [id=" + id + ", nomeTransacao=" + nomeTransacao + ", tipoTransacao=" + tipoTransacao
-				+ ", descricaoTransacao=" + descricaoTransacao + ", dataTransacao=" + dataTransacao + ", dataRegistro="
-				+ dataRegistro + "]";
+		return "Receita [id=" + id + ", ContaEmpresa=" + ContaEmpresa + ", nomeTransacao=" + nomeTransacao
+				+ ", tipoTransacao=" + tipoTransacao + ", descricaoTransacao=" + descricaoTransacao + ", dataTransacao="
+				+ dataTransacao + ", dataRegistro=" + dataRegistro + "]";
 	}
+	
+	
 }

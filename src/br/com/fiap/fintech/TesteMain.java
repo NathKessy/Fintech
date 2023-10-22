@@ -28,6 +28,7 @@ public class TesteMain {
 
 		Saldo saldo = new Saldo();
 		saldo.setId(1);
+		saldo.setContaEmpresa(contaEmpresa);
 		saldo.setSaldoAtual(200);
 		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
 		saldo.setDataAtualizacao(LocalDate.now());
@@ -36,6 +37,7 @@ public class TesteMain {
 
 		Receita receita = new Receita();
 		receita.setId(2);
+		receita.setContaEmpresa(contaEmpresa);
 		receita.setDataRegistro(LocalDate.now());
 		receita.setDataTransacao(LocalDate.now());
 		receita.setDescricaoTransacao("Transferência entre contas");
@@ -44,15 +46,15 @@ public class TesteMain {
 
 		System.out.println(INFO + receita);
 
-		Despesas despesaa = new Despesas(3, LocalDate.now(), "Reunião RH", 1, "Setor RH", 1500);
+		Despesas despesaa = new Despesas(3, contaEmpresa, LocalDate.now(), "Reunião RH", 1, "Setor RH", 1500);
 		System.out.println(INFO + despesaa);
 
-		Investimento investimento = new Investimento(1, TipoInvestimentoEnum.RENDA_FIXA, 3000, LocalDate.now(),
+		Investimento investimento = new Investimento(1, contaEmpresa, TipoInvestimentoEnum.RENDA_FIXA, 3000, LocalDate.now(),
 				LocalDate.now(), "Aplicação direta Renner", StatusEnum.AGENDADO, LocalDate.now());
 
 		System.out.println(INFO + investimento);
 
-		Fornecedores forncedores = new Fornecedores(1, "Lucas Silva", "12.345.678/00001-10", "Japão Liberdade",
+		Fornecedores forncedores = new Fornecedores(1, contaEmpresa, "Lucas Silva", "12.345.678/00001-10", "Japão Liberdade",
 				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now());
 
 		System.out.println(INFO + forncedores);

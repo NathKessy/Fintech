@@ -4,10 +4,8 @@ import java.time.LocalDate;
 
 public class Fornecedores {
 
-//	Verificar com equipe cagotegoria e status. (aguardando respostas)
-
 	private int id;
-//	private ContaEmpresa idContaEmpresa;
+	private ContaEmpresa contaEmpresa;
 	private String nome;
 	private String cnpj;
 	private String endereco;
@@ -20,10 +18,11 @@ public class Fornecedores {
 	public Fornecedores() {
 	}
 
-	public Fornecedores(int id, String nome, String cnpj, String endereco, String telefone, String email,
-			String categoriaFornecedor, boolean status, LocalDate programacaoPagamento) {
+	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, String endereco, String telefone,
+			String email, String categoriaFornecedor, boolean status, LocalDate programacaoPagamento) {
 		super();
 		this.id = id;
+		this.contaEmpresa = contaEmpresa;
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
@@ -40,6 +39,14 @@ public class Fornecedores {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ContaEmpresa getContaEmpresa() {
+		return contaEmpresa;
+	}
+
+	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
+		this.contaEmpresa = contaEmpresa;
 	}
 
 	public String getNome() {
@@ -108,8 +115,8 @@ public class Fornecedores {
 
 	@Override
 	public String toString() {
-		return "Fornecedores [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", endereco=" + endereco + ", telefone="
-				+ telefone + ", email=" + email + ", categoriaFornecedor=" + categoriaFornecedor + ", status=" + status
-				+ ", programacaoPagamento=" + programacaoPagamento + "]";
+		return "Fornecedores [id=" + id + ", contaEmpresa=" + contaEmpresa + ", nome=" + nome + ", cnpj=" + cnpj
+				+ ", endereco=" + endereco + ", telefone=" + telefone + ", email=" + email + ", categoriaFornecedor="
+				+ categoriaFornecedor + ", status=" + status + ", programacaoPagamento=" + programacaoPagamento + "]";
 	}
 }

@@ -6,23 +6,23 @@ import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 
 public class Saldo {
 	
-	
 	private int id;
-	//private int id_conta_saldo_atual;
+	private ContaEmpresa contaEmpresa;
 	private double saldoAtual;
 	private LocalDate dataAtualizacao;
 	private TipoMoedaEnum tipoMoeda;
 	
 	public Saldo(){}
-	
-	public Saldo(int id, double saldoAtual, LocalDate dataAtualizacao, TipoMoedaEnum tipoMoeda) {
+
+	public Saldo(int id, ContaEmpresa contaEmpresa, double saldoAtual, LocalDate dataAtualizacao,
+			TipoMoedaEnum tipoMoeda) {
 		super();
 		this.id = id;
+		this.contaEmpresa = contaEmpresa;
 		this.saldoAtual = saldoAtual;
 		this.dataAtualizacao = dataAtualizacao;
 		this.tipoMoeda = tipoMoeda;
 	}
-
 
 	public int getId() {
 		return id;
@@ -30,6 +30,14 @@ public class Saldo {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ContaEmpresa getContaEmpresa() {
+		return contaEmpresa;
+	}
+
+	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
+		this.contaEmpresa = contaEmpresa;
 	}
 
 	public double getSaldoAtual() {
@@ -54,11 +62,11 @@ public class Saldo {
 
 	public void setTipoMoeda(TipoMoedaEnum tipoMoeda) {
 		this.tipoMoeda = tipoMoeda;
-	}	
-	
+	}
+
 	@Override
 	public String toString() {
-		return "Saldo [id=" + id + ", saldoAtual=" + saldoAtual + ", dataAtualizacao=" + dataAtualizacao
-				+ ", tipoMoeda=" + tipoMoeda + "]";
+		return "Saldo [id=" + id + ", contaEmpresa=" + contaEmpresa + ", saldoAtual=" + saldoAtual
+				+ ", dataAtualizacao=" + dataAtualizacao + ", tipoMoeda=" + tipoMoeda + "]";
 	}
 }

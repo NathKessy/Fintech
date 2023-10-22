@@ -8,7 +8,7 @@ import br.com.fiap.fintech.model.enums.TipoInvestimentoEnum;
 public class Investimento {
 
 	private int id;
-//	private int idContaEmpresa;
+	private ContaEmpresa contaEmpresa;
 	private TipoInvestimentoEnum tipoInvestimento;
 	private double valorInvestido;
 	private LocalDate dataInicio;
@@ -18,11 +18,13 @@ public class Investimento {
 	private LocalDate dataRegistro;
 	
 	public Investimento(){}
-
-	public Investimento(int id, TipoInvestimentoEnum tipoInvestimento, double valorInvestido, LocalDate dataInicio,
-			LocalDate dataResgate, String descricaoInvestimento, StatusEnum status, LocalDate dataRegistro) {
+	
+	public Investimento(int id, ContaEmpresa contaEmpresa, TipoInvestimentoEnum tipoInvestimento, double valorInvestido,
+			LocalDate dataInicio, LocalDate dataResgate, String descricaoInvestimento, StatusEnum status,
+			LocalDate dataRegistro) {
 		super();
 		this.id = id;
+		this.contaEmpresa = contaEmpresa;
 		this.tipoInvestimento = tipoInvestimento;
 		this.valorInvestido = valorInvestido;
 		this.dataInicio = dataInicio;
@@ -31,13 +33,21 @@ public class Investimento {
 		this.status = status;
 		this.dataRegistro = dataRegistro;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ContaEmpresa getContaEmpresa() {
+		return contaEmpresa;
+	}
+
+	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
+		this.contaEmpresa = contaEmpresa;
 	}
 
 	public TipoInvestimentoEnum getTipoInvestimento() {
@@ -98,9 +108,11 @@ public class Investimento {
 
 	@Override
 	public String toString() {
-		return "Investimento [id=" + id + ", tipoInvestimento=" + tipoInvestimento + ", valorInvestido="
-				+ valorInvestido + ", dataInicio=" + dataInicio + ", dataResgate=" + dataResgate
+		return "Investimento [id=" + id + ", contaEmpresa=" + contaEmpresa + ", tipoInvestimento=" + tipoInvestimento
+				+ ", valorInvestido=" + valorInvestido + ", dataInicio=" + dataInicio + ", dataResgate=" + dataResgate
 				+ ", descricaoInvestimento=" + descricaoInvestimento + ", status=" + status + ", dataRegistro="
 				+ dataRegistro + "]";
 	}
+
+	
 }
