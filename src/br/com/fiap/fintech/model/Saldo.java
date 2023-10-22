@@ -2,7 +2,7 @@ package br.com.fiap.fintech.model;
 
 import java.time.LocalDate;
 
-import br.com.fiap.fintech.model.enums.TipoMoeda;
+import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 
 public class Saldo {
 	
@@ -11,11 +11,11 @@ public class Saldo {
 	//private int id_conta_saldo_atual;
 	private double saldoAtual;
 	private LocalDate dataAtualizacao;
-	private TipoMoeda tipoMoeda;
+	private TipoMoedaEnum tipoMoeda;
 	
 	public Saldo(){}
 	
-	public Saldo(int id, double saldoAtual, LocalDate dataAtualizacao, TipoMoeda tipoMoeda) {
+	public Saldo(int id, double saldoAtual, LocalDate dataAtualizacao, TipoMoedaEnum tipoMoeda) {
 		super();
 		this.id = id;
 		this.saldoAtual = saldoAtual;
@@ -48,11 +48,11 @@ public class Saldo {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public TipoMoeda getTipoMoeda() {
+	public TipoMoedaEnum getTipoMoeda() {
 		return tipoMoeda;
 	}
 
-	public void setTipoMoeda(TipoMoeda tipoMoeda) {
+	public void setTipoMoeda(TipoMoedaEnum tipoMoeda) {
 		this.tipoMoeda = tipoMoeda;
 	}	
 	

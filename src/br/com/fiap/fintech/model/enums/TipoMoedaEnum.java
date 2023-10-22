@@ -1,6 +1,6 @@
 package br.com.fiap.fintech.model.enums;
 
-public enum TipoMoeda {
+public enum TipoMoedaEnum {
 	
 	REAL,
 	DOLAR,

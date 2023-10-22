@@ -2,21 +2,21 @@ package br.com.fiap.fintech.model;
 
 import java.time.LocalDate;
 
-import br.com.fiap.fintech.model.enums.TipoTransacao;
+import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
 
 public class Receita {
 
 	private int id;
 	//private int idContaEmpresa;
 	private String nomeTransacao;
-	private TipoTransacao tipoTransacao;
+	private TipoTransacaoEnum tipoTransacao;
 	private String descricaoTransacao;
 	private LocalDate dataTransacao;
 	private LocalDate dataRegistro;
 	
 	public Receita(){}
 	
-	public Receita(int id, String nomeTransacao, TipoTransacao tipoTransacao, String descricaoTransacao, LocalDate dataTransacao,
+	public Receita(int id, String nomeTransacao, TipoTransacaoEnum tipoTransacao, String descricaoTransacao, LocalDate dataTransacao,
 			LocalDate dataRegistro) {
 		super();
 		this.id = id;
@@ -43,11 +43,11 @@ public class Receita {
 		this.nomeTransacao = nomeTransacao;
 	}
 
-	public TipoTransacao getTipoTransacao() {
+	public TipoTransacaoEnum getTipoTransacao() {
 		return tipoTransacao;
 	}
 
-	public void setTipoTransacao(TipoTransacao tipoTransacao) {
+	public void setTipoTransacao(TipoTransacaoEnum tipoTransacao) {
 		this.tipoTransacao = tipoTransacao;
 	}
 
