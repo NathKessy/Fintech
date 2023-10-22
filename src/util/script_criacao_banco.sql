@@ -35,7 +35,7 @@ CREATE TABLE t_conta_empresa (
 
 ALTER TABLE t_conta_empresa ADD CONSTRAINT pk_t_conta_empresa PRIMARY KEY ( id_conta );
 
-CREATE TABLE t_despersas (
+CREATE TABLE t_despesas (
     id_despesa               INTEGER NOT NULL,
     t_conta_empresa_id_conta INTEGER NOT NULL,
     data_registro            DATE NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE t_despersas (
     custo                    NUMBER(4, 2)
 );
 
-ALTER TABLE t_despersas ADD CONSTRAINT t_despersas_pk PRIMARY KEY ( id_despesa );
+ALTER TABLE t_despesas ADD CONSTRAINT t_despesas_pk PRIMARY KEY ( id_despesa );
 
 CREATE TABLE t_doc_socios (
     id_socios            INTEGER NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE t_estado (
 
 ALTER TABLE t_estado ADD CONSTRAINT pk_t_estado PRIMARY KEY ( id_estado );
 
-CREATE TABLE t_forncedores (
+CREATE TABLE t_fornecedores (
     id_fornecedores          INTEGER NOT NULL,
     t_conta_empresa_id_conta INTEGER NOT NULL,
     nome                     VARCHAR2(30) NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE t_forncedores (
     hist_pagamentos          VARCHAR2(50) NOT NULL
 );
 
-ALTER TABLE t_forncedores ADD CONSTRAINT pk_t_forncedores PRIMARY KEY ( id_fornecedores,
+ALTER TABLE t_fornecedores ADD CONSTRAINT pk_t_fornecedores PRIMARY KEY ( id_fornecedores,
                                                                         t_conta_empresa_id_conta );
 
 CREATE TABLE t_investimentos (
@@ -209,7 +209,7 @@ ALTER TABLE t_investimentos
     ADD CONSTRAINT fk_id_contav1 FOREIGN KEY ( t_conta_empresa_id_conta )
         REFERENCES t_conta_empresa ( id_conta );
 
-ALTER TABLE t_forncedores
+ALTER TABLE t_fornecedores
     ADD CONSTRAINT fk_id_contav2 FOREIGN KEY ( t_conta_empresa_id_conta )
         REFERENCES t_conta_empresa ( id_conta );
 
@@ -271,6 +271,6 @@ ALTER TABLE t_empresa
     ADD CONSTRAINT fk_id_usuarios FOREIGN KEY ( t_usuario_id_usuario )
         REFERENCES t_usuario ( id_usuario );
 
-ALTER TABLE t_despersas
-    ADD CONSTRAINT t_despersas_t_conta_empresa_fk FOREIGN KEY ( t_conta_empresa_id_conta )
+ALTER TABLE t_despesas
+    ADD CONSTRAINT t_despesas_t_conta_empresa_fk FOREIGN KEY ( t_conta_empresa_id_conta )
         REFERENCES t_conta_empresa ( id_conta );
