@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class DocumentosSocios {
 
 	private int id;
-//  private int Empresa idEmpresa;
+//    private int Empresa idEmpresa;
 	private String nome;
 	private String rg;
 	private String cpf;
