@@ -4,7 +4,7 @@ public class Usuario {
 
 	private int id;
 	private ContaEmpresa contaEmpresa;
-//	private idEmpresa
+	private Empresa empresa;
 	private String loginEmpresa; 
 	private String email;
 	private String senha;
@@ -12,10 +12,12 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(int id, ContaEmpresa contaEmpresa, String loginEmpresa, String email, String senha) {
+	public Usuario(int id, ContaEmpresa contaEmpresa, Empresa empresa, String loginEmpresa, String email,
+			String senha) {
 		super();
 		this.id = id;
 		this.contaEmpresa = contaEmpresa;
+		this.empresa = empresa;
 		this.loginEmpresa = loginEmpresa;
 		this.email = email;
 		this.senha = senha;
@@ -35,6 +37,14 @@ public class Usuario {
 
 	public void setContaEmpresa(ContaEmpresa contaEmpresa) {
 		this.contaEmpresa = contaEmpresa;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getLoginEmpresa() {
@@ -63,9 +73,9 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", contaEmpresa=" + contaEmpresa + ", loginEmpresa=" + loginEmpresa + ", email="
-				+ email + ", senha=" + senha + "]";
+		return "Usuario [id=" + id + ", contaEmpresa=" + contaEmpresa + ", empresa=" + empresa + ", loginEmpresa="
+				+ loginEmpresa + ", email=" + email + ", senha=" + senha + "]";
 	}
-	
+
 	
 }

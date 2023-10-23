@@ -9,11 +9,12 @@ import br.com.fiap.fintech.model.Fornecedores;
 import br.com.fiap.fintech.model.Investimento;
 import br.com.fiap.fintech.model.Receita;
 import br.com.fiap.fintech.model.Saldo;
+import br.com.fiap.fintech.model.Usuario;
 import br.com.fiap.fintech.model.enums.StatusEnum;
+import br.com.fiap.fintech.model.enums.TipoContaEnum;
 import br.com.fiap.fintech.model.enums.TipoInvestimentoEnum;
 import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
-import br.com.fiap.fintech.model.enums.TipoContaEnum;
 
 public class TesteMain {
 
@@ -21,8 +22,16 @@ public class TesteMain {
 		Conexao.abrirConexao();
 
 		final String INFO = "INFO: ";
+	
+		Usuario usuario = new Usuario();  
+		usuario.setEmail("dias.thyala@gmail.com");
+		usuario.setId(1);
+		usuario.setLoginEmpresa("Thyala");
+		usuario.setSenha("15975");
 		
-		ContaEmpresa contaEmpresa = new ContaEmpresa(1, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
+		ContaEmpresa contaEmpresa = new ContaEmpresa(1, usuario, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
+		usuario.setContaEmpresa(contaEmpresa);
+		System.out.println(usuario);
 		
 		System.out.println(INFO + contaEmpresa);
 
@@ -58,6 +67,6 @@ public class TesteMain {
 				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now());
 
 		System.out.println(INFO + forncedores);
-
+     
 	}
 }
