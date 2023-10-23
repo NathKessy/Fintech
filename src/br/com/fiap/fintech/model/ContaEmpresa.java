@@ -7,7 +7,7 @@ import br.com.fiap.fintech.model.enums.TipoContaEnum;
 public class ContaEmpresa {
 
 	private int id;
-//	private int idUsuario;
+	private Usuario usuario; 
 	private int numeroConta;
 	private TipoContaEnum tipoConta;
 	private boolean statusConta;
@@ -16,10 +16,11 @@ public class ContaEmpresa {
 	public ContaEmpresa() {
 	}
 
-	public ContaEmpresa(int id, int numeroConta, TipoContaEnum tipoConta, boolean statusConta,
+	public ContaEmpresa(int id, Usuario usuario, int numeroConta, TipoContaEnum tipoConta, boolean statusConta,
 			LocalDate dataAbertura) {
 		super();
 		this.id = id;
+		this.usuario = usuario;
 		this.numeroConta = numeroConta;
 		this.tipoConta = tipoConta;
 		this.statusConta = statusConta;
@@ -32,6 +33,14 @@ public class ContaEmpresa {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public int getNumeroConta() {
@@ -68,7 +77,9 @@ public class ContaEmpresa {
 
 	@Override
 	public String toString() {
-		return "ContaEmpresa [id=" + id + ", numeroConta=" + numeroConta + ", tipoConta=" + tipoConta + ", statusConta="
-				+ statusConta + ", dataAbertura=" + dataAbertura + "]";
+		return "ContaEmpresa [id=" + id + ", usuario=" + usuario + ", numeroConta=" + numeroConta + ", tipoConta="
+				+ tipoConta + ", statusConta=" + statusConta + ", dataAbertura=" + dataAbertura + "]";
 	}
+
+	
 }
