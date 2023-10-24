@@ -1,8 +1,11 @@
 package br.com.fiap.fintech;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.fiap.fintech.dao.Conexao;
+import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.ContaEmpresa;
 import br.com.fiap.fintech.model.Despesas;
 import br.com.fiap.fintech.model.Fornecedores;
@@ -18,7 +21,7 @@ import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
 
 public class TesteMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Conexao.abrirConexao();
 
 		final String INFO = "INFO: ";
@@ -29,8 +32,19 @@ public class TesteMain {
 		usuario.setLoginEmpresa("Thyala");
 		usuario.setSenha("15975");
 		
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+		usuarioDao.adicionar(usuario);
+		
+		System.out.println("Lista de usuário");
+		List<Usuario> listaUsuario = usuarioDao.getAll();
+		for(Usuario user : listaUsuario) {
+			System.out.println(user);
+		}
+		
+		
+		
 		ContaEmpresa contaEmpresa = new ContaEmpresa(1, usuario, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
-		usuario.setContaEmpresa(contaEmpresa);
+//		usuario.setContaEmpresa(contaEmpresa);
 		System.out.println(usuario);
 		
 		System.out.println(INFO + contaEmpresa);
