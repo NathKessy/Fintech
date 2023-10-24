@@ -1,28 +1,51 @@
 package br.com.fiap.fintech;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.fiap.fintech.dao.Conexao;
+import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.ContaEmpresa;
 import br.com.fiap.fintech.model.Despesas;
 import br.com.fiap.fintech.model.Fornecedores;
 import br.com.fiap.fintech.model.Investimento;
 import br.com.fiap.fintech.model.Receita;
 import br.com.fiap.fintech.model.Saldo;
+import br.com.fiap.fintech.model.Usuario;
 import br.com.fiap.fintech.model.enums.StatusEnum;
+import br.com.fiap.fintech.model.enums.TipoContaEnum;
 import br.com.fiap.fintech.model.enums.TipoInvestimentoEnum;
 import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
-import br.com.fiap.fintech.model.enums.TipoContaEnum;
 
 public class TesteMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Conexao.abrirConexao();
 
 		final String INFO = "INFO: ";
+	
+		Usuario usuario = new Usuario();  
+		usuario.setEmail("dias.thyala@gmail.com");
+		usuario.setId(1);
+		usuario.setLoginEmpresa("Thyala");
+		usuario.setSenha("15975");
 		
-		ContaEmpresa contaEmpresa = new ContaEmpresa(1, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+		usuarioDao.adicionar(usuario);
+		
+		System.out.println("Lista de usuário");
+		List<Usuario> listaUsuario = usuarioDao.getAll();
+		for(Usuario user : listaUsuario) {
+			System.out.println(user);
+		}
+		
+		
+		
+		ContaEmpresa contaEmpresa = new ContaEmpresa(1, usuario, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
+//		usuario.setContaEmpresa(contaEmpresa);
+		System.out.println(usuario);
 		
 		System.out.println(INFO + contaEmpresa);
 
@@ -58,6 +81,6 @@ public class TesteMain {
 				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now());
 
 		System.out.println(INFO + forncedores);
-
+     
 	}
 }
