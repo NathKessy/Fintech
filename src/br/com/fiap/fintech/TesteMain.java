@@ -8,6 +8,7 @@ import br.com.fiap.fintech.dao.Conexao;
 import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.ContaEmpresa;
 import br.com.fiap.fintech.model.Despesas;
+import br.com.fiap.fintech.model.Empresa;
 import br.com.fiap.fintech.model.Fornecedores;
 import br.com.fiap.fintech.model.Investimento;
 import br.com.fiap.fintech.model.Receita;
@@ -48,6 +49,12 @@ public class TesteMain {
 		System.out.println(usuario);
 		
 		System.out.println(INFO + contaEmpresa);
+		
+		Empresa empresa = new Empresa(1, usuario, "Lucas", "LucasFds", "12.345.678/0001-10", 150000, "05562-025", 
+				"1137822930", "lucasfds@gmail.com", "Rua da Luz", 370000);
+		
+		System.out.println(INFO + empresa);
+		
 
 		Saldo saldo = new Saldo();
 		saldo.setId(1);
