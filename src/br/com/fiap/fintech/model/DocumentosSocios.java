@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class DocumentosSocios {
 
 	private int id;
-//    private int Empresa idEmpresa;
+	private Empresa empresa;
 	private String nome;
 	private String rg;
 	private String cpf;
@@ -17,10 +17,11 @@ public class DocumentosSocios {
 	public DocumentosSocios() {
 	}
 
-	public DocumentosSocios(int id, String nome, String rg, String cpf, LocalDate dataNascimento, String estadoCivil,
-			String nacionalidade, String endereco) {
+	public DocumentosSocios(int id, Empresa empresa, String nome, String rg, String cpf, LocalDate dataNascimento,
+			String estadoCivil, String nacionalidade, String endereco) {
 		super();
 		this.id = id;
+		this.empresa = empresa;
 		this.nome = nome;
 		this.rg = rg;
 		this.cpf = cpf;
@@ -30,27 +31,34 @@ public class DocumentosSocios {
 		this.endereco = endereco;
 	}
 
-
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getRg() {
 		return rg;
 	}
-	
+
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
@@ -97,8 +105,10 @@ public class DocumentosSocios {
 
 	@Override
 	public String toString() {
-		return "DocSocios [id=" + id + ", nome=" + nome + ", rg=" + rg + ", cpf=" + cpf + ", dataNascimento="
-				+ dataNascimento + ", estadoCivil=" + estadoCivil + ", nacionalidade=" + nacionalidade + ", endereco="
-				+ endereco + "]";
-	}	
+		return "DocumentosSocios [id=" + id + ", empresa=" + empresa + ", nome=" + nome + ", rg=" + rg + ", cpf=" + cpf
+				+ ", dataNascimento=" + dataNascimento + ", estadoCivil=" + estadoCivil + ", nacionalidade="
+				+ nacionalidade + ", endereco=" + endereco + "]";
+	}
+
+	
 }

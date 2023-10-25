@@ -3,9 +3,7 @@ package br.com.fiap.fintech.model;
 public class Empresa {
 
 	private int id;
-//	private docSocios
-//  private enderecoEmpresa
-	private Usuario usuario;
+	private DocumentosSocios documentosSocios;
 	private String razaoSocial;
 	private String nomeFantasia;
 	private String cnpj;
@@ -19,11 +17,11 @@ public class Empresa {
 	public Empresa() {
 	}
 
-	public Empresa(int id, Usuario usuario, String razaoSocial, String nomeFantasia, String cnpj,
+	public Empresa(int id, DocumentosSocios documentosSocios, String razaoSocial, String nomeFantasia, String cnpj,
 			double capital_empresa, String cep, String telefone, String email, String endereco, double faturamento) {
 		super();
 		this.id = id;
-		this.usuario = usuario;
+		this.documentosSocios = documentosSocios;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.cnpj = cnpj;
@@ -43,12 +41,12 @@ public class Empresa {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public DocumentosSocios getDocumentosSocios() {
+		return documentosSocios;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setDocumentosSocios(DocumentosSocios documentosSocios) {
+		this.documentosSocios = documentosSocios;
 	}
 
 	public String getRazaoSocial() {
@@ -125,17 +123,11 @@ public class Empresa {
 
 	@Override
 	public String toString() {
-		return "Empresa [id=" + id + ", usuario=" + usuario + ", razaoSocial=" + razaoSocial + ", nomeFantasia="
-				+ nomeFantasia + ", cnpj=" + cnpj + ", capital_empresa=" + capital_empresa + ", cep=" + cep
-				+ ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco + ", faturamento="
-				+ faturamento + "]";
+		return "Empresa [id=" + id + ", documentosSocios=" + documentosSocios + ", razaoSocial=" + razaoSocial
+				+ ", nomeFantasia=" + nomeFantasia + ", cnpj=" + cnpj + ", capital_empresa=" + capital_empresa
+				+ ", cep=" + cep + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco
+				+ ", faturamento=" + faturamento + "]";
 	}
-	
-	
-
-
-
-
 
 
 	
