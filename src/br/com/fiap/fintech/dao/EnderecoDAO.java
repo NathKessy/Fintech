@@ -23,9 +23,9 @@ public class EnderecoDAO {
 					+ "VALUES ( SQ_FINTECH.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
-			stmt.setObject(1, endereco.getEstado());
-			stmt.setObject(2, endereco.getCidade());
-			stmt.setObject(3, endereco.getPais());
+			stmt.setObject(1, endereco.getEstado().getId());
+			stmt.setObject(2, endereco.getCidade().getId());
+			stmt.setObject(3, endereco.getPais().getId());
 			stmt.setString(4, endereco.getLogradouro());
 			stmt.setString(5, endereco.getBairro());
 			stmt.setString(6, endereco.getNumero());

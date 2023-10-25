@@ -15,7 +15,6 @@ import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 public class TesteMain {
 
 	public static void main(String[] args) throws SQLException {
-		final String INFO = "INFO: ";
 	
 		UsuarioDAO usuarioDao = new UsuarioDAO();
 		ContaEmpresaDAO contaEmpresaDao = new ContaEmpresaDAO();

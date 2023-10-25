@@ -1,3 +1,30 @@
+-- Drop todas as tabelas do banco
+DROP TABLE t_cidade cascade constraints;
+DROP TABLE t_pais cascade constraints;
+DROP TABLE t_estado cascade constraints;
+DROP TABLE t_endereco cascade constraints;
+DROP TABLE t_comprov cascade constraints;
+DROP TABLE t_comprov_socios cascade constraints;
+DROP TABLE t_conta_empresa cascade constraints;
+DROP TABLE t_doc_socios cascade constraints;
+DROP TABLE t_empresa cascade constraints;
+DROP TABLE t_endereco_empresa cascade constraints;
+DROP TABLE t_fornecedores cascade constraints;
+DROP TABLE t_investimentos cascade constraints;
+DROP TABLE t_receita cascade constraints;
+DROP TABLE t_saldo cascade constraints;
+DROP TABLE t_despesas cascade constraints;
+DROP TABLE t_usuario cascade constraints;
+
+-- Drop sequencias
+DROP SEQUENCE SQ_FINTECH;
+
+-- Criação de sequencias 
+CREATE SEQUENCE SQ_FINTECH INCREMENT BY 1 MAXVALUE 9999999999999999999999999999 MINVALUE 1 CACHE 20;
+
+
+-- Criação entidades 
+
 CREATE TABLE t_cidade (
     id_cidade   INTEGER NOT NULL,
     nome_cidade VARCHAR2(50) NOT NULL
@@ -24,28 +51,15 @@ ALTER TABLE t_comprov_socios ADD CONSTRAINT pk_t_comprov_socios PRIMARY KEY ( t_
 
 CREATE TABLE t_conta_empresa (
     id_conta             INTEGER NOT NULL,
-    t_usuario_id_usuario INTEGER NOT NULL,
-    t_saldo_id_saldo     INTEGER NOT NULL,
+    t_usuario_id_usuario INTEGER NULL,
     numero_conta         VARCHAR2(7) NOT NULL,
     tipo_conta           VARCHAR2(20) NOT NULL,
-    status_conta         VARCHAR2(20) NOT NULL,
+    status_conta         INTEGER NOT NULL,
     data_abertura        DATE NOT NULL
 );
 
 
 ALTER TABLE t_conta_empresa ADD CONSTRAINT pk_t_conta_empresa PRIMARY KEY ( id_conta );
-
-CREATE TABLE t_despesas (
-    id_despesa               INTEGER NOT NULL,
-    t_conta_empresa_id_conta INTEGER NOT NULL,
-    data_registro            DATE NOT NULL,
-    desc_despesas            VARCHAR2(100) NOT NULL,
-    quantidade               INTEGER NOT NULL,
-    destino                  VARCHAR2(80) NOT NULL,
-    custo                    NUMBER(4, 2)
-);
-
-ALTER TABLE t_despesas ADD CONSTRAINT t_despesas_pk PRIMARY KEY ( id_despesa );
 
 CREATE TABLE t_doc_socios (
     id_socios            INTEGER NOT NULL,
@@ -86,14 +100,11 @@ CREATE TABLE t_endereco (
     logradouro         VARCHAR2(50) NOT NULL,
     bairro             VARCHAR2(30) NOT NULL,
     numero             VARCHAR2(10) NOT NULL,
-    cep                VARCHAR2(8) NOT NULL
+    cep                VARCHAR2(10) NOT NULL
 );
 
 ALTER TABLE t_endereco
-    ADD CONSTRAINT pk_t_endereco PRIMARY KEY ( id_endereco,
-                                               t_estado_id_estado,
-                                               t_cidade_id_cidade,
-                                               t_pais_id_pais );
+    ADD CONSTRAINT pk_t_endereco PRIMARY KEY ( id_endereco);
 
 CREATE TABLE t_endereco_empresa (
     t_endereco_id_endereco        INTEGER NOT NULL,
@@ -104,11 +115,7 @@ CREATE TABLE t_endereco_empresa (
 );
 
 ALTER TABLE t_endereco_empresa
-    ADD CONSTRAINT pk_t_endereco_empresa PRIMARY KEY ( t_endereco_id_endereco,
-                                                       t_endereco_t_estado_id_estado,
-                                                       t_endereco_t_cidade_id_cidade,
-                                                       t_endereco_t_pais_id_pais,
-                                                       t_empresa_id_empresa );
+    ADD CONSTRAINT pk_t_endereco_empresa PRIMARY KEY ( t_endereco_id_endereco);
 
 CREATE TABLE t_estado (
     id_estado   INTEGER NOT NULL,
@@ -133,8 +140,7 @@ CREATE TABLE t_fornecedores (
     hist_pagamentos          VARCHAR2(50) NOT NULL
 );
 
-ALTER TABLE t_fornecedores ADD CONSTRAINT pk_t_fornecedores PRIMARY KEY ( id_fornecedores,
-                                                                        t_conta_empresa_id_conta );
+ALTER TABLE t_fornecedores ADD CONSTRAINT pk_t_fornecedores PRIMARY KEY ( id_fornecedores );
 
 CREATE TABLE t_investimentos (
     id_investimentos         INTEGER NOT NULL,
@@ -149,12 +155,12 @@ CREATE TABLE t_investimentos (
     data_registro            DATE NOT NULL
 );
 
-ALTER TABLE t_investimentos ADD CONSTRAINT pk_t_investimentos PRIMARY KEY ( id_investimentos,
-                                                                            t_conta_empresa_id_conta );
+ALTER TABLE t_investimentos ADD CONSTRAINT pk_t_investimentos PRIMARY KEY ( id_investimentos );
 
 CREATE TABLE t_pais (
     id_pais   INTEGER NOT NULL,
-    nome_pais VARCHAR2(30) NOT NULL
+    nome_pais VARCHAR2(30) NOT NULL,
+    sigla     VARCHAR2(8) NULL
 );
 
 ALTER TABLE t_pais ADD CONSTRAINT pk_t_pais PRIMARY KEY ( id_pais );
@@ -169,8 +175,7 @@ CREATE TABLE t_receita (
     data_registro            DATE NOT NULL
 );
 
-ALTER TABLE t_receita ADD CONSTRAINT pk_t_hist_transacao PRIMARY KEY ( id_receita,
-                                                                       t_conta_empresa_id_conta );
+ALTER TABLE t_receita ADD CONSTRAINT pk_t_hist_transacao PRIMARY KEY ( id_receita );
 
 CREATE TABLE t_saldo (
     id_saldo                 INTEGER NOT NULL,
@@ -182,16 +187,33 @@ CREATE TABLE t_saldo (
 
 ALTER TABLE t_saldo ADD CONSTRAINT pk_t_saldo PRIMARY KEY ( id_saldo );
 
+CREATE TABLE t_despesas (
+    id_despesa               INTEGER NOT NULL,
+    t_conta_empresa_id_conta INTEGER NOT NULL,
+    data_registro            DATE NOT NULL,
+    desc_despesas            VARCHAR2(100) NOT NULL,
+    quantidade               INTEGER NOT NULL,
+    destino                  VARCHAR2(80) NOT NULL,
+    custo                    NUMBER(4, 2)
+);
+
+ALTER TABLE t_despesas ADD CONSTRAINT t_despesas_pk PRIMARY KEY ( id_despesa );
+
 CREATE TABLE t_usuario (
     id_usuario               INTEGER NOT NULL,
-    t_empresa_id_empresa     INTEGER NOT NULL,
-    t_conta_empresa_id_conta INTEGER NOT NULL,
+    t_empresa_id_empresa     INTEGER NULL, -- NOT NULL ?? 
     login_empresa            VARCHAR2(50) NOT NULL,
     email                    VARCHAR2(50) NOT NULL,
     senha                    VARCHAR2(20) NOT NULL
 );
 
 ALTER TABLE t_usuario ADD CONSTRAINT pk_t_usuario PRIMARY KEY ( id_usuario );
+
+-- Relacionamentos entre tabelas 
+
+ALTER TABLE t_despesas
+    ADD CONSTRAINT fk_id_contav8 FOREIGN KEY ( t_conta_empresa_id_conta )
+        REFERENCES t_conta_empresa ( id_conta );
 
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_cidade FOREIGN KEY ( t_cidade_id_cidade )
@@ -200,10 +222,6 @@ ALTER TABLE t_endereco
 ALTER TABLE t_comprov_socios
     ADD CONSTRAINT fk_id_comprov FOREIGN KEY ( t_comprov_id_comprov )
         REFERENCES t_comprov ( id_comprov );
-
-ALTER TABLE t_usuario
-    ADD CONSTRAINT fk_id_conta FOREIGN KEY ( t_conta_empresa_id_conta )
-        REFERENCES t_conta_empresa ( id_conta );
 
 ALTER TABLE t_investimentos
     ADD CONSTRAINT fk_id_contav1 FOREIGN KEY ( t_conta_empresa_id_conta )
@@ -234,14 +252,8 @@ ALTER TABLE t_endereco_empresa
         REFERENCES t_empresa ( id_empresa );
 
 ALTER TABLE t_endereco_empresa
-    ADD CONSTRAINT fk_id_endereco FOREIGN KEY ( t_endereco_id_endereco,
-                                                t_endereco_t_estado_id_estado,
-                                                t_endereco_t_cidade_id_cidade,
-                                                t_endereco_t_pais_id_pais )
-        REFERENCES t_endereco ( id_endereco,
-                                t_estado_id_estado,
-                                t_cidade_id_cidade,
-                                t_pais_id_pais );
+    ADD CONSTRAINT fk_id_endereco FOREIGN KEY ( t_endereco_id_endereco)
+        REFERENCES t_endereco ( id_endereco );
 
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_estado FOREIGN KEY ( t_estado_id_estado )
@@ -250,10 +262,6 @@ ALTER TABLE t_endereco
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_pais FOREIGN KEY ( t_pais_id_pais )
         REFERENCES t_pais ( id_pais );
-
-ALTER TABLE t_conta_empresa
-    ADD CONSTRAINT fk_id_saldo FOREIGN KEY ( t_saldo_id_saldo )
-        REFERENCES t_saldo ( id_saldo );
 
 ALTER TABLE t_empresa
     ADD CONSTRAINT fk_id_socios FOREIGN KEY ( t_doc_socios_id_socios )
@@ -271,6 +279,19 @@ ALTER TABLE t_empresa
     ADD CONSTRAINT fk_id_usuarios FOREIGN KEY ( t_usuario_id_usuario )
         REFERENCES t_usuario ( id_usuario );
 
-ALTER TABLE t_despesas
-    ADD CONSTRAINT t_despesas_t_conta_empresa_fk FOREIGN KEY ( t_conta_empresa_id_conta )
-        REFERENCES t_conta_empresa ( id_conta );
+COMMIT;
+
+-- Insert registros para relacionamentos 
+INSERT INTO T_PAIS (id_pais, nome_pais, sigla)VALUES (1, 'Brasil', 'BR');
+INSERT INTO T_PAIS (id_pais, nome_pais, sigla)VALUES (2, 'Argentina', 'AR');
+INSERT INTO T_PAIS (id_pais, nome_pais, sigla)VALUES (3, 'Uruguai', 'UY');
+
+INSERT INTO T_CIDADE (id_cidade, nome_cidade) VALUES (1, 'São Paulo');
+INSERT INTO T_CIDADE (id_cidade, nome_cidade) VALUES (2, 'Salvador');
+INSERT INTO T_CIDADE (id_cidade, nome_cidade) VALUES (3, 'São bernardo do Campo');
+
+INSERT INTO T_ESTADO (id_estado, nome_estado, UF) VALUES (1, 'São Paulo', 'SP');
+INSERT INTO T_ESTADO (id_estado, nome_estado, UF) VALUES (2, 'Rio ', 'SP');
+
+
+COMMIT;
