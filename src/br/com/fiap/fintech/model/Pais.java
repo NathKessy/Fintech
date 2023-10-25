@@ -16,6 +16,11 @@ public class Pais {
 		this.sigla = sigla;
 	}
 
+	public Pais(int id) {
+		super();
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}

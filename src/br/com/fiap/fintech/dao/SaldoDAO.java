@@ -22,6 +22,7 @@ public class SaldoDAO {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_saldo (ID_SALDO, T_CONTA_EMPRESA_ID_CONTA, SALDO_ATUAL, TIPO_MOEDA, DATA_ATUALIZACAO)"
 					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?)";
+			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, saldo.getContaEmpresa().getId());
 			stmt.setDouble(2, saldo.getSaldoAtual());
@@ -42,8 +43,5 @@ public class SaldoDAO {
 			stmt.close();
 			conexao.close();
 		}
-		
-		
-		
 	}
 }

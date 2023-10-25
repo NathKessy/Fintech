@@ -9,6 +9,11 @@ public class Estado {
 	public Estado() {
 	}
 
+	public Estado(int id) {
+		super();
+		this.id = id;
+	}
+
 	public Estado(int id, String UF, String nomeEstado) {
 		super();
 		this.id = id;
