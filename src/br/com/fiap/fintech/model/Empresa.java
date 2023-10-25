@@ -11,14 +11,14 @@ public class Empresa {
 	private String cep;
 	private String telefone;
 	private String email;
-	private String endereco;
+	private Endereco endereco;
 	private double faturamento;
 
 	public Empresa() {
 	}
 
 	public Empresa(int id, DocumentosSocios documentosSocios, String razaoSocial, String nomeFantasia, String cnpj,
-			double capital_empresa, String cep, String telefone, String email, String endereco, double faturamento) {
+			double capital_empresa, String cep, String telefone, String email, Endereco endereco, double faturamento) {
 		super();
 		this.id = id;
 		this.documentosSocios = documentosSocios;
@@ -105,11 +105,11 @@ public class Empresa {
 		this.email = email;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
@@ -129,6 +129,4 @@ public class Empresa {
 				+ ", faturamento=" + faturamento + "]";
 	}
 
-
-	
 }
