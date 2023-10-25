@@ -291,7 +291,7 @@ INSERT INTO T_CIDADE (id_cidade, nome_cidade) VALUES (2, 'Salvador');
 INSERT INTO T_CIDADE (id_cidade, nome_cidade) VALUES (3, 'São bernardo do Campo');
 
 INSERT INTO T_ESTADO (id_estado, nome_estado, UF) VALUES (1, 'São Paulo', 'SP');
-INSERT INTO T_ESTADO (id_estado, nome_estado, UF) VALUES (2, 'Rio ', 'SP');
+INSERT INTO T_ESTADO (id_estado, nome_estado, UF) VALUES (2, 'Rio de Janeiro', 'RJ');
 
 
 COMMIT;
