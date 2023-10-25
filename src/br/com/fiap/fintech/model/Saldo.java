@@ -6,7 +6,7 @@ import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 
 public class Saldo {
 	
-	private int id;
+	private Integer id;
 	private ContaEmpresa contaEmpresa;
 	private double saldoAtual;
 	private LocalDate dataAtualizacao;
@@ -14,7 +14,7 @@ public class Saldo {
 	
 	public Saldo(){}
 
-	public Saldo(int id, ContaEmpresa contaEmpresa, double saldoAtual, LocalDate dataAtualizacao,
+	public Saldo(Integer id, ContaEmpresa contaEmpresa, double saldoAtual, LocalDate dataAtualizacao,
 			TipoMoedaEnum tipoMoeda) {
 		super();
 		this.id = id;
@@ -24,11 +24,11 @@ public class Saldo {
 		this.tipoMoeda = tipoMoeda;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

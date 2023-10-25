@@ -6,9 +6,9 @@ import br.com.fiap.fintech.model.enums.TipoContaEnum;
 
 public class ContaEmpresa {
 
-	private int id;
+	private Integer id;
 	private Usuario usuario; 
-	private int numeroConta;
+	private String numeroConta;
 	private TipoContaEnum tipoConta;
 	private boolean statusConta;
 	private LocalDate dataAbertura;
@@ -16,7 +16,7 @@ public class ContaEmpresa {
 	public ContaEmpresa() {
 	}
 
-	public ContaEmpresa(int id, Usuario usuario, int numeroConta, TipoContaEnum tipoConta, boolean statusConta,
+	public ContaEmpresa(Integer id, Usuario usuario, String numeroConta, TipoContaEnum tipoConta, boolean statusConta,
 			LocalDate dataAbertura) {
 		super();
 		this.id = id;
@@ -27,11 +27,11 @@ public class ContaEmpresa {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -43,11 +43,11 @@ public class ContaEmpresa {
 		this.usuario = usuario;
 	}
 
-	public int getNumeroConta() {
+	public String getNumeroConta() {
 		return numeroConta;
 	}
 
-	public void setNumeroConta(int numeroConta) {
+	public void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
 
@@ -62,7 +62,7 @@ public class ContaEmpresa {
 	public boolean isStatusConta() {
 		return statusConta;
 	}
-
+	
 	public void setStatusConta(boolean statusConta) {
 		this.statusConta = statusConta;
 	}

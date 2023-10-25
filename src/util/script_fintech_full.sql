@@ -29,7 +29,7 @@ CREATE TABLE t_conta_empresa (
     t_usuario_id_usuario INTEGER NULL,
     numero_conta         VARCHAR2(7) NOT NULL,
     tipo_conta           VARCHAR2(20) NOT NULL,
-    status_conta         VARCHAR2(20) NOT NULL,
+    status_conta         INTEGER NOT NULL,
     data_abertura        DATE NOT NULL
 );
 

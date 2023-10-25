@@ -3,39 +3,44 @@ package br.com.fiap.fintech;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import br.com.fiap.fintech.dao.ContaEmpresaDAO;
+import br.com.fiap.fintech.dao.SaldoDAO;
 import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.ContaEmpresa;
+import br.com.fiap.fintech.model.Saldo;
 import br.com.fiap.fintech.model.Usuario;
 import br.com.fiap.fintech.model.enums.TipoContaEnum;
+import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 
 public class TesteMain {
 
 	public static void main(String[] args) throws SQLException {
 		final String INFO = "INFO: ";
 	
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+		ContaEmpresaDAO contaEmpresaDao = new ContaEmpresaDAO();
+
 		Usuario usuario = new Usuario();  
 		usuario.setEmail("dias.thyala@gmail.com");
-		usuario.setId(1);
 		usuario.setLoginEmpresa("Thyala");
 		usuario.setSenha("15975");
 		
-		ContaEmpresa contaEmpresa = new ContaEmpresa(1, usuario, 101, TipoContaEnum.CONTA_VIP, true, LocalDate.now());
-		System.out.println(INFO + contaEmpresa);
-
-		// Persistindo usuário no banco de dados
-		UsuarioDAO usuarioDao = new UsuarioDAO();
 		usuarioDao.adicionar(usuario);
-		usuarioDao.delete(4);
 		
-		System.out.println("\n Buscando um usuário especifico");
-		System.out.println(usuarioDao.getById(1)); // NÃO É OBRIGATÓRIO!! 
+		Usuario userDb = usuarioDao.getById(2);
 		
-		System.out.println("\n *** Lista de usuário *** ");
-		for(Usuario user : usuarioDao.getAll()) {
-			System.out.println(user);
-		}
+		ContaEmpresa contaEmpresa = new ContaEmpresa(3, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true, LocalDate.now());
+		contaEmpresaDao.adicionar(contaEmpresa);
 		
+		Saldo saldo = new Saldo();
+		saldo.setId(1);
+		saldo.setContaEmpresa(contaEmpresa);
+		saldo.setSaldoAtual(200);
+		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
+		saldo.setDataAtualizacao(LocalDate.now());
 		
+		SaldoDAO saldoDao = new SaldoDAO();
+		saldoDao.adicionar(saldo);
 		
 //		Empresa empresa = new Empresa(1, usuario, "Lucas", "LucasFds", "12.345.678/0001-10", 150000, "05562-025", 
 //				"1137822930", "lucasfds@gmail.com", "Rua da Luz", 370000);
@@ -43,12 +48,6 @@ public class TesteMain {
 //		System.out.println(INFO + empresa);
 //		
 //
-//		Saldo saldo = new Saldo();
-//		saldo.setId(1);
-//		saldo.setContaEmpresa(contaEmpresa);
-//		saldo.setSaldoAtual(200);
-//		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
-//		saldo.setDataAtualizacao(LocalDate.now());
 //
 //		System.out.println(INFO + saldo);
 //

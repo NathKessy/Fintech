@@ -2,8 +2,7 @@ package br.com.fiap.fintech.model;
 
 public class Usuario {
 
-	private int id;
-	private Empresa empresa;
+	private Integer id;
 	private String loginEmpresa; 
 	private String email;
 	private String senha;
@@ -11,30 +10,20 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(int id, Empresa empresa, String loginEmpresa, String email,
-			String senha) {
+	public Usuario(Integer id, String loginEmpresa, String email, String senha) {
 		super();
 		this.id = id;
-		this.empresa = empresa;
 		this.loginEmpresa = loginEmpresa;
 		this.email = email;
 		this.senha = senha;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	public String getLoginEmpresa() {
@@ -63,7 +52,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", empresa=" + empresa + ", loginEmpresa="
+		return "Usuario [id=" + id + ", loginEmpresa="
 				+ loginEmpresa + ", email=" + email + ", senha=" + senha + "]";
 	}
 }
