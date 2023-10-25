@@ -20,7 +20,7 @@ public class ContaEmpresaDAO {
 		
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_conta_empresa(ID_CONTA, T_USUARIO_ID_USUARIO, TIPO_CONTA, STATUS_CONTA, NUMERO_CONTA, DATA_ABERTURA)\r\n"
+			String sql = "INSERT INTO t_conta_empresa(ID_CONTA, T_USUARIO_ID_USUARIO, TIPO_CONTA, STATUS_CONTA, NUMERO_CONTA, DATA_ABERTURA)"
 					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?, ?)";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, contaEmpresa.getUsuario().getId());
@@ -33,7 +33,7 @@ public class ContaEmpresaDAO {
 			
 			stmt.executeUpdate();
 			
-			System.out.println("INFO: Conta Empresa " + contaEmpresa.getNumeroConta() + " cadastrado!!");
+			System.out.println("INFO: A Conta Empresa com o número: " + contaEmpresa.getNumeroConta() + ", foi cadastrado!!");
 			
 		} catch (SQLException erro){
 			System.err.println("Erro ao cadastrar uma nova Conta Empresa no banco de dados!");
