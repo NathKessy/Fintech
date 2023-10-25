@@ -20,7 +20,7 @@ public class EnderecoDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_endereco ( id_endereco, t_estado_id_estado, t_cidade_id_cidade, t_pais_id_pais, logradouro, bairro, numero, cep) "
-					+ "VALUES ( SQ_FINTECH.NEXTVAL, ?, ?, ?, ?)";
+					+ "VALUES ( 1, estado, cidade, pais, Rua Rosa, Casa Verde, 84, 07130-000)";
 			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setObject(1, endereco.getEstado());
