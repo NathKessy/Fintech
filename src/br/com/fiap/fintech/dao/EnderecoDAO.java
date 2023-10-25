@@ -23,9 +23,9 @@ public class EnderecoDAO {
 					+ "VALUES ( SQ_FINTECH.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
-			stmt.setObject(1, endereco.getEstado());
-			stmt.setObject(2, endereco.getCidade());
-			stmt.setObject(3, endereco.getPais());
+			stmt.setObject(1, endereco.getEstado().getId());
+			stmt.setObject(2, endereco.getCidade().getId());
+			stmt.setObject(3, endereco.getPais().getId());
 			stmt.setString(4, endereco.getLogradouro());
 			stmt.setString(5, endereco.getBairro());
 			stmt.setString(6, endereco.getNumero());
@@ -51,21 +51,27 @@ public class EnderecoDAO {
 		Connection conexao = null;
 		ResultSet rs = null; 
 		
+		EnderecoComplementosDAO dao = new EnderecoComplementosDAO();
+		
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_usuario";
+			String sql = "select * from t_endereco";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
 				int id = rs.getInt("ID_ENDERECO");
-				Estado estado = (Estado) rs.getObject("T_ESTADO_ID_ESTADO");
-				Cidade cidade = (Cidade) rs.getObject("T_CIDADE_ID_CIDADE");
-				Pais pais = (Pais) rs.getObject("T_PAIS_ID_PAIS");
+				int idEstado = rs.getInt("T_ESTADO_ID_ESTADO");
+				int idCidade = rs.getInt("T_CIDADE_ID_CIDADE");
+				int idPais = rs.getInt("T_PAIS_ID_PAIS");
 				String logradouro = rs.getString("LOGRADOURO");
 				String bairro = rs.getString("BAIRRO");
 				String numero = rs.getString("NUMERO");
 				String cep = rs.getString("CEP");
+				
+				Estado estado = dao.getEstadoById(idEstado);
+				Cidade cidade = dao.getCidadeById(idCidade);
+				Pais pais = dao.getPaisById(idPais);
 				
 				Endereco endereco = new Endereco(id, estado, cidade, pais, logradouro, bairro, numero, cep );
 				lista.add(endereco);
