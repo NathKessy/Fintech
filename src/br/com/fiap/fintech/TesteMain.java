@@ -26,41 +26,41 @@ public class TesteMain {
 
 		UsuarioDAO usuarioDao = new UsuarioDAO();
 		ContaEmpresaDAO contaEmpresaDao = new ContaEmpresaDAO();
-//
-//		Usuario usuario = new Usuario();
-//		usuario.setEmail("dias.thyala@gmail.com");
-//		usuario.setLoginEmpresa("Thyala");
-//		usuario.setSenha("15975");
-//
-//		usuarioDao.adicionar(usuario);
-//
-		Usuario userDb = usuarioDao.getById(4);
-//
-		ContaEmpresa contaEmpresa = new ContaEmpresa(6, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
+
+		Usuario usuario = new Usuario();
+		usuario.setEmail("dias.thyala@gmail.com");
+		usuario.setLoginEmpresa("Thyala");
+		usuario.setSenha("15975");
+
+		usuarioDao.adicionar(usuario);
+
+		Usuario userDb = usuarioDao.getById(3);
+
+		ContaEmpresa contaEmpresa = new ContaEmpresa(4, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
 				LocalDate.now());
 		contaEmpresaDao.adicionar(contaEmpresa);
 
-//		Saldo saldo = new Saldo();
-//		saldo.setId(1);
-//		saldo.setContaEmpresa(contaEmpresa);
-//		saldo.setSaldoAtual(200);
-//		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
-//		saldo.setDataAtualizacao(LocalDate.now());
+		Saldo saldo = new Saldo();
+		saldo.setId(1);
+		saldo.setContaEmpresa(contaEmpresa);
+		saldo.setSaldoAtual(200);
+		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
+		saldo.setDataAtualizacao(LocalDate.now());
 
-//		SaldoDAO saldoDao = new SaldoDAO();
-//		saldoDao.adicionar(saldo);
+		SaldoDAO saldoDao = new SaldoDAO();
+		saldoDao.adicionar(saldo);
 
-//		Receita receita = new Receita();
-//		receita.setId(2);
-//		receita.setContaEmpresa(contaEmpresa);
-//		receita.setDataRegistro(LocalDate.now());
-//		receita.setDataTransacao(LocalDate.now());
-//		receita.setDescricaoTransacao("Transferência entre contas");
-//		receita.setNomeTransacao("Roberto Almeida");
-//		receita.setTipoTransacao(TipoTransacaoEnum.PIX);
-//
-//		ReceitaDAO receitaDao = new ReceitaDAO();
-//		receitaDao.adicionar(receita);
+		Receita receita = new Receita();
+		receita.setId(2);
+		receita.setContaEmpresa(contaEmpresa);
+		receita.setDataRegistro(LocalDate.now());
+		receita.setDataTransacao(LocalDate.now());
+		receita.setDescricaoTransacao("Transferência entre contas");
+		receita.setNomeTransacao("Roberto Almeida");
+		receita.setTipoTransacao(TipoTransacaoEnum.PIX);
+
+		ReceitaDAO receitaDao = new ReceitaDAO();
+		receitaDao.adicionar(receita);
 
 		Investimento investimento = new Investimento(14, contaEmpresa, TipoInvestimentoEnum.RENDA_FIXA, 3000,
 				LocalDate.now(), LocalDate.now(), "Aplicação direta Renner", StatusEnum.AGENDADO, LocalDate.now());
