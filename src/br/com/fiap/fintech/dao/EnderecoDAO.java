@@ -24,12 +24,12 @@ public class EnderecoDAO {
 			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setObject(1, endereco.getEstado());
-			stmt.setObject(1, endereco.getCidade());
-			stmt.setObject(1, endereco.getPais());
-			stmt.setString(1, endereco.getLogradouro());
-			stmt.setString(2, endereco.getBairro());
-			stmt.setString(3, endereco.getNumero());
-			stmt.setString(4, endereco.getCep());
+			stmt.setObject(2, endereco.getCidade());
+			stmt.setObject(3, endereco.getPais());
+			stmt.setString(4, endereco.getLogradouro());
+			stmt.setString(5, endereco.getBairro());
+			stmt.setString(6, endereco.getNumero());
+			stmt.setString(7, endereco.getCep());
 			
 			stmt.executeUpdate();
 			
