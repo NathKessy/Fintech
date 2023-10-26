@@ -2,7 +2,7 @@ package br.com.fiap.fintech.model;
 
 public class Empresa {
 
-	private int id;
+	private Integer id;
 	private DocumentosSocios documentosSocios;
 	private String razaoSocial;
 	private String nomeFantasia;
@@ -16,8 +16,15 @@ public class Empresa {
 
 	public Empresa() {
 	}
+	
 
-	public Empresa(int id, DocumentosSocios documentosSocios, String razaoSocial, String nomeFantasia, String cnpj,
+	public Empresa(Integer id) {
+		super();
+		this.id = id;
+	}
+
+
+	public Empresa(Integer id, DocumentosSocios documentosSocios, String razaoSocial, String nomeFantasia, String cnpj,
 			double capital_empresa, String cep, String telefone, String email, String endereco, double faturamento) {
 		super();
 		this.id = id;
@@ -33,11 +40,11 @@ public class Empresa {
 		this.faturamento = faturamento;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
