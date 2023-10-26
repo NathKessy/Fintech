@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import br.com.fiap.fintech.dao.ContaEmpresaDAO;
+import br.com.fiap.fintech.dao.FornecedoresDAO;
 import br.com.fiap.fintech.dao.InvestimentosDAO;
 import br.com.fiap.fintech.dao.ReceitaDAO;
 import br.com.fiap.fintech.dao.SaldoDAO;
 import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.ContaEmpresa;
+import br.com.fiap.fintech.model.Fornecedores;
 import br.com.fiap.fintech.model.Investimento;
 import br.com.fiap.fintech.model.Receita;
 import br.com.fiap.fintech.model.Saldo;
@@ -34,9 +36,9 @@ public class TesteMain {
 
 		usuarioDao.adicionar(usuario);
 
-		Usuario userDb = usuarioDao.getById(4);
+		Usuario userDb = usuarioDao.getById(21);
 
-		ContaEmpresa contaEmpresa = new ContaEmpresa(10, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
+		ContaEmpresa contaEmpresa = new ContaEmpresa(2, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
 				LocalDate.now());
 		contaEmpresaDao.adicionar(contaEmpresa);
 
@@ -68,6 +70,12 @@ public class TesteMain {
 		InvestimentosDAO investiDao = new InvestimentosDAO();
 		investiDao.adicionar(investimento);
 		
+		Fornecedores forncedores = new Fornecedores(1, contaEmpresa, "Lucas Silva", "12.345.678/00001-10", "Japão Liberdade",
+				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now(), null);
+		
+		FornecedoresDAO fornecedoresDao = new FornecedoresDAO();
+		fornecedoresDao.adicionar(forncedores);
+		
 //		Empresa empresa = new Empresa(1, usuario, "Lucas", "LucasFds", "12.345.678/0001-10", 150000, "05562-025", 
 //				"1137822930", "lucasfds@gmail.com", "Rua da Luz", 370000);
 //		
@@ -82,10 +90,7 @@ public class TesteMain {
 //		System.out.println(INFO + despesaa);
 //
 //
-//		Fornecedores forncedores = new Fornecedores(1, contaEmpresa, "Lucas Silva", "12.345.678/00001-10", "Japão Liberdade",
-//				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now());
-//
-//		System.out.println(INFO + forncedores);
+
 
 	}
 }
