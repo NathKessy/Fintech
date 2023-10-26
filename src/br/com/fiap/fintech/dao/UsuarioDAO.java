@@ -18,7 +18,7 @@ public class UsuarioDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_usuario ( id_usuario, empresa, login_empresa, email, senha ) "
+			String sql = "INSERT INTO t_usuario ( id_usuario, T_EMPRESA_ID_EMPRESA, login_empresa, email, senha ) "
 					+ "VALUES ( SQ_USUARIO.NEXTVAL, ?, ?, ?, ?)";
 
 			stmt = conexao.prepareStatement(sql);
@@ -54,7 +54,7 @@ public class UsuarioDAO {
 
 			while (rs.next()) {
 				int id = rs.getInt("ID_USUARIO");
-				int idEmpresa = rs.getInt("EMPRESA");
+				int idEmpresa = rs.getInt("T_EMPRESA_ID_EMPRESA");
 				String login = rs.getString("LOGIN_EMPRESA");
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");

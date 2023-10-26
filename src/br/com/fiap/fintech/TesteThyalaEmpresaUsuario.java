@@ -4,11 +4,13 @@ import java.sql.SQLException;
 
 import br.com.fiap.fintech.dao.EmpresaDAO;
 import br.com.fiap.fintech.dao.EnderecoDAO;
+import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.Cidade;
 import br.com.fiap.fintech.model.Empresa;
 import br.com.fiap.fintech.model.Endereco;
 import br.com.fiap.fintech.model.Estado;
 import br.com.fiap.fintech.model.Pais;
+import br.com.fiap.fintech.model.Usuario;
 
 public class TesteThyalaEmpresaUsuario {
 	
@@ -16,6 +18,7 @@ public class TesteThyalaEmpresaUsuario {
 		
 		EnderecoDAO enderecoDao = new EnderecoDAO();
 		EmpresaDAO empresaDao = new EmpresaDAO();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		
 		Pais pais = new Pais(1, "Brasil", "BR");
 		Cidade cidade = new Cidade(1, "São Paulo");
@@ -32,6 +35,8 @@ public class TesteThyalaEmpresaUsuario {
 			System.out.println(getEmpresa);
 		}
 		
+		Usuario usuario = new Usuario(1, empresa, "gustavo.araujo", "gustavo.araujo@gmail.com", "12345678");
+		usuarioDAO.adicionar(usuario);
 	}
 
 }

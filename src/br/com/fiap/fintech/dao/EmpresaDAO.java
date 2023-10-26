@@ -54,6 +54,8 @@ public class EmpresaDAO {
 		Connection conexao = null;
 		ResultSet rs = null;
 		
+		EnderecoDAO enderecoDao = new EnderecoDAO();
+		
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "select * from t_empresa";
@@ -73,8 +75,7 @@ public class EmpresaDAO {
 				int idEndereco = rs.getInt("ENDERECO");
 				Double faturamento = rs.getDouble("FATURAMENTO");
 				
-				Endereco endereco = new Endereco(idEndereco); // Criar getById
-				
+				Endereco endereco = enderecoDao.getById(idEndereco);
 				Empresa empresa = new Empresa(id, null, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
 				lista.add(empresa);
 			}
