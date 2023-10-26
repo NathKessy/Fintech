@@ -52,8 +52,6 @@ public class DocumentosSociosDAO {
 			conexao.close();
 		}
 		
-		
-		
 	}
 	
 	public List<DocumentosSocios> getAll() throws SQLException {
@@ -101,6 +99,54 @@ public class DocumentosSociosDAO {
 		}
 
 		return lista;
+	}
+	
+	public DocumentosSocios getById(int identifier) throws SQLException {
+		PreparedStatement stmt = null;
+		Connection conexao = null;
+		ResultSet rs = null;
+
+		DocumentosSocios documentosSocios = null;
+		
+		EmpresaDAO empresaDao = new EmpresaDAO();
+
+		try {
+			conexao = Conexao.abrirConexao();
+			String sql = "select * from t_doc_socios where id_socios = ?";
+			stmt = conexao.prepareStatement(sql);
+			stmt.setInt(1, identifier);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("ID_SOCIOS");
+				int idEmpresa = rs.getInt("T_EMPRESA_ID_EMPRESA");
+				String nome = rs.getString("NOME");
+				String rg = rs.getString("RG");
+				String cpf = rs.getString("CPF");
+				Date dataNascimento = rs.getDate("DATA_NASC");
+				String estadoCivil = rs.getString("ESTADO_CIVIL");
+				String nacionalidade = rs.getString("NACIONALIDADE");
+				String endereco = rs.getString("ENDERECO");
+								
+				@SuppressWarnings("deprecation")
+				LocalDate data = LocalDate.of(dataNascimento.getYear(), dataNascimento.getMonth(), dataNascimento.getDay());
+				
+				Empresa empresa = empresaDao.getById(idEmpresa);
+				
+				documentosSocios = new DocumentosSocios(id, empresa, nome, rg, cpf, data, estadoCivil, nacionalidade, endereco);
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Erro ao listar endereços ao banco de dados!");
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			conexao.close();
+		}
+
+		return documentosSocios;
 	}
 
 }

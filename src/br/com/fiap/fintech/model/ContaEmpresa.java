@@ -16,6 +16,11 @@ public class ContaEmpresa {
 	public ContaEmpresa() {
 	}
 
+	public ContaEmpresa(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public ContaEmpresa(Integer id, Usuario usuario, String numeroConta, TipoContaEnum tipoConta, boolean statusConta,
 			LocalDate dataAbertura) {
 		super();

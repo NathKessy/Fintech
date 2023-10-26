@@ -1,3 +1,6 @@
+DROP TABLE t_comprov_socios cascade constraints;
+DROP TABLE t_endereco_empresa cascade constraints;
+
 -- Drop todas as tabelas do banco
 DROP TABLE t_conta_empresa cascade constraints;
 DROP TABLE t_cidade cascade constraints;
@@ -5,10 +8,8 @@ DROP TABLE t_pais cascade constraints;
 DROP TABLE t_estado cascade constraints;
 DROP TABLE t_endereco cascade constraints;
 DROP TABLE t_comprov cascade constraints;
-DROP TABLE t_comprov_socios cascade constraints;
 DROP TABLE t_doc_socios cascade constraints;
 DROP TABLE t_empresa cascade constraints;
-DROP TABLE t_endereco_empresa cascade constraints;
 DROP TABLE t_fornecedores cascade constraints;
 DROP TABLE t_investimentos cascade constraints;
 DROP TABLE t_receita cascade constraints;
@@ -41,20 +42,13 @@ ALTER TABLE t_cidade ADD CONSTRAINT pk_t_cidade PRIMARY KEY ( id_cidade );
 
 CREATE TABLE t_comprov (
     id_comprov   INTEGER NOT NULL,
+    fk_t_comprov INTEGER NULL,
     endereco     VARCHAR2(50) NOT NULL,
     data_emissao DATE NOT NULL,
     tipo_comprov VARCHAR2(20) NOT NULL
 );
 
 ALTER TABLE t_comprov ADD CONSTRAINT pk_t_comprov PRIMARY KEY ( id_comprov );
-
-CREATE TABLE t_comprov_socios (
-    t_doc_socios_id_socios INTEGER NOT NULL,
-    t_comprov_id_comprov   INTEGER NOT NULL
-);
-
-ALTER TABLE t_comprov_socios ADD CONSTRAINT pk_t_comprov_socios PRIMARY KEY ( t_doc_socios_id_socios,
-                                                                              t_comprov_id_comprov );
 
 CREATE TABLE t_conta_empresa (
     id_conta             INTEGER NOT NULL,
@@ -84,7 +78,6 @@ ALTER TABLE t_doc_socios ADD CONSTRAINT pk_t_doc_socios PRIMARY KEY ( id_socios 
 
 CREATE TABLE t_empresa (
     id_empresa             INTEGER NOT NULL,
-    t_doc_socios_id_socios INTEGER  NULL, -- REMOVER ESSE CARA!
     razao_social           VARCHAR2(30) NOT NULL,
     nome_fantasia          VARCHAR2(50) NOT NULL,
     cnpj                   VARCHAR2(14) NOT NULL,
@@ -112,16 +105,6 @@ CREATE TABLE t_endereco (
 ALTER TABLE t_endereco
     ADD CONSTRAINT pk_t_endereco PRIMARY KEY ( id_endereco);
 
-CREATE TABLE t_endereco_empresa (
-    t_endereco_id_endereco        INTEGER NULL,
-    t_endereco_t_estado_id_estado INTEGER NULL,
-    t_endereco_t_cidade_id_cidade INTEGER NULL,
-    t_endereco_t_pais_id_pais     INTEGER NULL,
-    t_empresa_id_empresa          INTEGER NULL
-);
-
--- ALTER TABLE t_endereco_empresa
---     ADD CONSTRAINT pk_t_endereco_empresa PRIMARY KEY ( t_endereco_id_endereco);
 
 CREATE TABLE t_estado (
     id_estado   INTEGER NOT NULL,
@@ -205,7 +188,7 @@ ALTER TABLE t_despesas ADD CONSTRAINT t_despesas_pk PRIMARY KEY ( id_despesa );
 
 CREATE TABLE t_usuario (
     id_usuario               INTEGER NOT NULL,
-    t_empresa_id_empresa     INTEGER NULL, -- NOT NULL ?? 
+    t_empresa_id_empresa     INTEGER NULL, 
     login_empresa            VARCHAR2(50) NOT NULL,
     email                    VARCHAR2(50) NOT NULL,
     senha                    VARCHAR2(20) NOT NULL
@@ -222,10 +205,6 @@ ALTER TABLE t_despesas
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_cidade FOREIGN KEY ( t_cidade_id_cidade )
         REFERENCES t_cidade ( id_cidade );
-
-ALTER TABLE t_comprov_socios
-    ADD CONSTRAINT fk_id_comprov FOREIGN KEY ( t_comprov_id_comprov )
-        REFERENCES t_comprov ( id_comprov );
 
 ALTER TABLE t_investimentos
     ADD CONSTRAINT fk_id_contav1 FOREIGN KEY ( t_conta_empresa_id_conta )
@@ -247,17 +226,13 @@ ALTER TABLE t_doc_socios
     ADD CONSTRAINT fk_id_empresa FOREIGN KEY ( t_empresa_id_empresa )
         REFERENCES t_empresa ( id_empresa );
 
+ALTER TABLE t_comprov
+    ADD CONSTRAINT fk_t_comprov FOREIGN KEY ( fk_t_comprov )
+        REFERENCES t_doc_socios (id_socios);
+
 ALTER TABLE t_usuario
     ADD CONSTRAINT fk_id_empresav2 FOREIGN KEY ( t_empresa_id_empresa )
         REFERENCES t_empresa ( id_empresa );
-
-ALTER TABLE t_endereco_empresa
-    ADD CONSTRAINT fk_id_empresav3 FOREIGN KEY ( t_empresa_id_empresa )
-        REFERENCES t_empresa ( id_empresa );
-
-ALTER TABLE t_endereco_empresa
-    ADD CONSTRAINT fk_id_endereco FOREIGN KEY ( t_endereco_id_endereco)
-        REFERENCES t_endereco ( id_endereco );
 
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_estado FOREIGN KEY ( t_estado_id_estado )
@@ -266,14 +241,6 @@ ALTER TABLE t_endereco
 ALTER TABLE t_endereco
     ADD CONSTRAINT fk_id_pais FOREIGN KEY ( t_pais_id_pais )
         REFERENCES t_pais ( id_pais );
-
-ALTER TABLE t_empresa
-    ADD CONSTRAINT fk_id_socios FOREIGN KEY ( t_doc_socios_id_socios )
-        REFERENCES t_doc_socios ( id_socios );
-
-ALTER TABLE t_comprov_socios
-    ADD CONSTRAINT fk_id_sociosv2 FOREIGN KEY ( t_doc_socios_id_socios )
-        REFERENCES t_doc_socios ( id_socios );
 
 ALTER TABLE t_conta_empresa
     ADD CONSTRAINT fk_id_usuario FOREIGN KEY ( t_usuario_id_usuario )

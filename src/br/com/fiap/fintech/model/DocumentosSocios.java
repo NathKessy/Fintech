@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class DocumentosSocios {
 
-	private int id;
+	private Integer id;
 	private Empresa empresa;
 	private String nome;
 	private String rg;
@@ -31,7 +31,7 @@ public class DocumentosSocios {
 		this.endereco = endereco;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

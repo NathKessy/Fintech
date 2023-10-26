@@ -10,13 +10,8 @@ import br.com.fiap.fintech.model.Saldo;
 public class SaldoDAO {
 	
 	public void adicionar (Saldo saldo) throws SQLException {
-		if (saldo.getContaEmpresa().getId() == null) {
-			System.out.println("ID não localizado na base de dados");
-			return;
-		}
-		
 		Connection conexao = null;
-		PreparedStatement stmt = null;
+		PreparedStatement stmt = null;	
 		
 		try {
 			conexao = Conexao.abrirConexao();
