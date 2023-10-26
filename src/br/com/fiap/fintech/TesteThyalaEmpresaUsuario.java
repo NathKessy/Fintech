@@ -4,11 +4,13 @@ import java.sql.SQLException;
 
 import br.com.fiap.fintech.dao.EmpresaDAO;
 import br.com.fiap.fintech.dao.EnderecoDAO;
+import br.com.fiap.fintech.dao.UsuarioDAO;
 import br.com.fiap.fintech.model.Cidade;
 import br.com.fiap.fintech.model.Empresa;
 import br.com.fiap.fintech.model.Endereco;
 import br.com.fiap.fintech.model.Estado;
 import br.com.fiap.fintech.model.Pais;
+import br.com.fiap.fintech.model.Usuario;
 
 public class TesteThyalaEmpresaUsuario {
 	
@@ -16,20 +18,32 @@ public class TesteThyalaEmpresaUsuario {
 		
 		EnderecoDAO enderecoDao = new EnderecoDAO();
 		EmpresaDAO empresaDao = new EmpresaDAO();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		
 		Pais pais = new Pais(1, "Brasil", "BR");
 		Cidade cidade = new Cidade(1, "São Paulo");
 		Estado estado = new Estado(1, "São Paulo", "SP");
 		
+		System.out.println("*** Endereco ****");
 		Endereco endereco = new Endereco(1, estado, cidade, pais, "Rua Parainense", "São Bernadence", "1001", "21345678");
 		enderecoDao.adicionar(endereco);
 		
-		Empresa empresa = new Empresa(1, null, "Simba Investimetos", "Simba Invest", "12345678", 10000.0, "12345678", "40028922", "simba@invest.com", endereco, 10000.0);
+		System.out.println("\n*** Empresa ***");
+		Empresa empresa = new Empresa(1, "Simba Investimetos", "Simba Invest", "12345678", 10000.0, "12345678", "40028922", "simba@invest.com", endereco, 10000.0);
 		empresaDao.adicionar(empresa);
 		
 		System.out.println("\nExibindo todas as Empresas cadastrados: ");
 		for (Empresa getEmpresa : empresaDao.getAll()) {
 			System.out.println(getEmpresa);
+		}
+		
+		System.out.println("\n*** Usuario ***");
+		Usuario usuario = new Usuario(1, empresa, "gustavo.araujo", "gustavo.araujo@gmail.com", "12345678");
+		usuarioDAO.adicionar(usuario);
+		
+		System.out.println("\nExibindo todos os usuarios cadastrados: ");
+		for (Usuario user : usuarioDAO.getAll()) {
+			System.out.println(user);
 		}
 		
 	}

@@ -18,7 +18,7 @@ public class UsuarioDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_usuario ( id_usuario, empresa, login_empresa, email, senha ) "
+			String sql = "INSERT INTO t_usuario ( id_usuario, T_EMPRESA_ID_EMPRESA, login_empresa, email, senha ) "
 					+ "VALUES ( SQ_USUARIO.NEXTVAL, ?, ?, ?, ?)";
 
 			stmt = conexao.prepareStatement(sql);
@@ -45,21 +45,23 @@ public class UsuarioDAO {
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 		ResultSet rs = null;
+		
+		EmpresaDAO empresaDao = new EmpresaDAO();
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_usuario";
+			String sql = "select * from t_usuario order by id_usuario asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				int id = rs.getInt("ID_USUARIO");
-				int idEmpresa = rs.getInt("EMPRESA");
+				int idEmpresa = rs.getInt("T_EMPRESA_ID_EMPRESA");
 				String login = rs.getString("LOGIN_EMPRESA");
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
 				
-				Empresa empresa = new Empresa(idEmpresa);
+				Empresa empresa = empresaDao.getById(idEmpresa);
 
 				Usuario usuario = new Usuario(id, empresa, login, email, senha);
 				lista.add(usuario);
@@ -82,6 +84,7 @@ public class UsuarioDAO {
 		Connection conexao = null;
 		ResultSet rs = null;
 
+		EmpresaDAO empresaDao = new EmpresaDAO();
 		Usuario usuario = null;
 
 		try {
@@ -97,8 +100,8 @@ public class UsuarioDAO {
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
 				
-				Empresa empresa = new Empresa(idEmpresa);
-
+				Empresa empresa = empresaDao.getById(idEmpresa);
+				
 				usuario = new Usuario(id, empresa, login, email, senha);
 			}
 

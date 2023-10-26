@@ -3,9 +3,15 @@ package br.com.fiap.fintech.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.fiap.fintech.model.ContaEmpresa;
 import br.com.fiap.fintech.model.Receita;
+import br.com.fiap.fintech.model.enums.TipoTransacaoEnum;
 
 public class ReceitaDAO {
 	
@@ -47,7 +53,48 @@ public class ReceitaDAO {
 			conexao.close();
 		}
 	}
-}
-
 	
+	public List<Receita> getAll() throws SQLException {
+		List<Receita> lista = new ArrayList<>();
+		PreparedStatement stmt = null;
+		Connection conexao = null;
+		ResultSet rs = null;
 
+		try {
+			conexao = Conexao.abrirConexao();
+			String sql = "select * from t_receita";
+			stmt = conexao.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("ID_RECEITA");
+				int idContaEmpresa = rs.getInt("T_CONTA_EMPRESA_ID_CONTA");
+				String nomeTransacao = rs.getString("NOME_TRANSACAO");
+				String tipoTransacao = rs.getString("TIPO_TRANSACAO");
+				String descricaoTransacao = rs.getString("DESCRICAO_TRANSACAO");
+				Date dataTransacaodb = rs.getDate("DATA_TRANSACAO");
+				Date dataRegistrodb = rs.getDate("DATA_REGISTRO");
+								
+				@SuppressWarnings("deprecation")
+				LocalDate dateTransacao = LocalDate.of(dataTransacaodb.getYear(), dataTransacaodb.getMonth(), dataTransacaodb.getDay());
+				LocalDate dateRegistro = LocalDate.of(dataRegistrodb.getYear(), dataRegistrodb.getMonth(), dataRegistrodb.getDay());
+				ContaEmpresa contaEmpresa = new ContaEmpresa(idContaEmpresa);
+				
+				Receita receita = new Receita(id, contaEmpresa, nomeTransacao, TipoTransacaoEnum.valueOf(tipoTransacao), descricaoTransacao, dateTransacao, dateRegistro);
+				lista.add(receita);
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Erro ao listar endereços ao banco de dados!");
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			conexao.close();
+		}
+
+		return lista;
+	}
+	
+}

@@ -6,9 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.fiap.fintech.model.Cidade;
 import br.com.fiap.fintech.model.Endereco;
 import br.com.fiap.fintech.model.Estado;
-import br.com.fiap.fintech.model.Cidade;
 import br.com.fiap.fintech.model.Pais;
 
 public class EnderecoDAO {
@@ -87,6 +88,51 @@ public class EnderecoDAO {
 		}
 		
 		return lista;
+	}
+	
+	public Endereco getById(int id) throws SQLException {
+		PreparedStatement stmt = null; 
+		Connection conexao = null;
+		ResultSet rs = null; 
+
+		Endereco endereco = null;
+		
+		EnderecoComplementosDAO dao = new EnderecoComplementosDAO();
+		
+		try {
+			conexao = Conexao.abrirConexao();
+			String sql = "select * from t_endereco where id_endereco = ?";
+			stmt = conexao.prepareStatement(sql);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				int identifier = rs.getInt("ID_ENDERECO");
+				int idEstado = rs.getInt("T_ESTADO_ID_ESTADO");
+				int idCidade = rs.getInt("T_CIDADE_ID_CIDADE");
+				int idPais = rs.getInt("T_PAIS_ID_PAIS");
+				String logradouro = rs.getString("LOGRADOURO");
+				String bairro = rs.getString("BAIRRO");
+				String numero = rs.getString("NUMERO");
+				String cep = rs.getString("CEP");
+				
+				Estado estado = dao.getEstadoById(idEstado);
+				Cidade cidade = dao.getCidadeById(idCidade);
+				Pais pais = dao.getPaisById(idPais);
+				
+				endereco = new Endereco(identifier, estado, cidade, pais, logradouro, bairro, numero, cep );
+			}
+			
+		} catch (SQLException e) {
+			System.out.println();
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			conexao.close();
+		}
+		
+		return endereco;
 	}
 
 }
