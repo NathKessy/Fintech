@@ -24,9 +24,11 @@ public class TesteThyalaEmpresaUsuario {
 		Cidade cidade = new Cidade(1, "São Paulo");
 		Estado estado = new Estado(1, "São Paulo", "SP");
 		
+		System.out.println("*** Endereco ****");
 		Endereco endereco = new Endereco(1, estado, cidade, pais, "Rua Parainense", "São Bernadence", "1001", "21345678");
 		enderecoDao.adicionar(endereco);
 		
+		System.out.println("\n*** Empresa ***");
 		Empresa empresa = new Empresa(1, null, "Simba Investimetos", "Simba Invest", "12345678", 10000.0, "12345678", "40028922", "simba@invest.com", endereco, 10000.0);
 		empresaDao.adicionar(empresa);
 		
@@ -35,8 +37,15 @@ public class TesteThyalaEmpresaUsuario {
 			System.out.println(getEmpresa);
 		}
 		
+		System.out.println("\n*** Usuario ***");
 		Usuario usuario = new Usuario(1, empresa, "gustavo.araujo", "gustavo.araujo@gmail.com", "12345678");
 		usuarioDAO.adicionar(usuario);
+		
+		System.out.println("\nExibindo todos os usuarios cadastrados: ");
+		for (Usuario user : usuarioDAO.getAll()) {
+			System.out.println(user);
+		}
+		
 	}
 
 }
