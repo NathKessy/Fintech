@@ -22,7 +22,7 @@ public class SaldoDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_saldo (ID_SALDO, T_CONTA_EMPRESA_ID_CONTA, SALDO_ATUAL, TIPO_MOEDA, DATA_ATUALIZACAO)"
-					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_SALDO.nextval, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, saldo.getContaEmpresa().getId());
@@ -56,7 +56,7 @@ public class SaldoDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_saldo";
+			String sql = "select * from t_saldo order by id_saldo asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 

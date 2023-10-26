@@ -27,7 +27,7 @@ public class ContaEmpresaDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_conta_empresa(ID_CONTA, T_USUARIO_ID_USUARIO, TIPO_CONTA, STATUS_CONTA, NUMERO_CONTA, DATA_ABERTURA)"
-					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_CONTA_EMPRESA.nextval, ?, ?, ?, ?, ?)";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, contaEmpresa.getUsuario().getId());
 			stmt.setString(2, contaEmpresa.getTipoConta().toString());
@@ -60,7 +60,7 @@ public class ContaEmpresaDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_conta_empresa";
+			String sql = "select * from t_conta_empresa order by id_conta asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
