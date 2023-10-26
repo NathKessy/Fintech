@@ -20,7 +20,7 @@ public class EmpresaDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO T_EMPRESA (id_empresa, t_doc_socios_id_socios, razao_social, nome_fantasia, cnpj, capital_emp, cep, telefone, email, endereco, faturamento)\r\n"
-					+ "    VALUES (SQ_FINTECH.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_EMPRESA.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
 //			stmt.setObject(1, empresa.getDocumentosSocios().getId());

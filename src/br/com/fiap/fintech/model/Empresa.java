@@ -16,6 +16,10 @@ public class Empresa {
 
 	public Empresa() {
 	}
+	
+	public Empresa(int idEmpresa) {
+		this.id = idEmpresa;
+	}
 
 	public Empresa(int id, DocumentosSocios documentosSocios, String razaoSocial, String nomeFantasia, String cnpj,
 			double capital_empresa, String cep, String telefone, String email, Endereco endereco, double faturamento) {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.fintech.model.Empresa;
 import br.com.fiap.fintech.model.Usuario;
 
 public class UsuarioDAO {
@@ -17,13 +18,14 @@ public class UsuarioDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_usuario ( id_usuario, login_empresa, email, senha ) "
-					+ "VALUES ( SQ_FINTECH.NEXTVAL, ?, ?, ?)";
+			String sql = "INSERT INTO t_usuario ( id_usuario, empresa, login_empresa, email, senha ) "
+					+ "VALUES ( SQ_USUARIO.NEXTVAL, ?, ?, ?, ?)";
 
 			stmt = conexao.prepareStatement(sql);
-			stmt.setString(1, usuario.getLoginEmpresa());
-			stmt.setString(2, usuario.getEmail());
-			stmt.setString(3, usuario.getSenha());
+			stmt.setObject(1, usuario.getEmpresa().getId());
+			stmt.setString(2, usuario.getLoginEmpresa());
+			stmt.setString(3, usuario.getEmail());
+			stmt.setString(4, usuario.getSenha());
 
 			stmt.executeUpdate();
 
@@ -52,11 +54,14 @@ public class UsuarioDAO {
 
 			while (rs.next()) {
 				int id = rs.getInt("ID_USUARIO");
+				int idEmpresa = rs.getInt("EMPRESA");
 				String login = rs.getString("LOGIN_EMPRESA");
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
+				
+				Empresa empresa = new Empresa(idEmpresa);
 
-				Usuario usuario = new Usuario(id, login, email, senha);
+				Usuario usuario = new Usuario(id, empresa, login, email, senha);
 				lista.add(usuario);
 			}
 
@@ -87,11 +92,14 @@ public class UsuarioDAO {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
+				int idEmpresa = rs.getInt("T_EMPRESA_ID_EMPRESA");
 				String login = rs.getString("LOGIN_EMPRESA");
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
+				
+				Empresa empresa = new Empresa(idEmpresa);
 
-				usuario = new Usuario(id, login, email, senha);
+				usuario = new Usuario(id, empresa, login, email, senha);
 			}
 
 		} catch (SQLException e) {
