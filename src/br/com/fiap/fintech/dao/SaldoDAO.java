@@ -34,7 +34,7 @@ public class SaldoDAO {
 			
 			stmt.executeUpdate();
 			
-			System.out.println("INFO: Seu saldo atual no valor de: " + saldo.getSaldoAtual() + ", foi cadastrado!!");
+			System.out.println("INFO: O valor de R$: R$" + saldo.getSaldoAtual() + ", foi cadastrado!!");
 			
 		} catch (SQLException erro){
 			System.err.println("Erro ao cadastrar o saldo atual no banco de dados!");

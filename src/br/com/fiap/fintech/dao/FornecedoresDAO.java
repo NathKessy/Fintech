@@ -47,11 +47,11 @@ public class FornecedoresDAO {
 			Date date = Date.valueOf(fornecedores.getProgramacaoPagamento());
 			stmt.setDate(9, date);
 			
-			stmt.setString(10, fornecedores.getHistoricoPagamento());
+			stmt.setString(10, fornecedores.getDescricaoFornecedores());
 
 			stmt.executeUpdate();
 			
-			System.out.println("INFO: " + fornecedores.getHistoricoPagamento() + ", foi cadastrado!!");
+			System.out.println("INFO: Fornecedor(a): " + fornecedores.getNome() + ", foi cadastrado!!");
 			
 		} catch (SQLException erro){
 			System.err.println("Erro ao cadastrar o fornecedores no banco de dados!");

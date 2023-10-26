@@ -29,7 +29,7 @@ public class UsuarioDAO {
 
 			stmt.executeUpdate();
 
-			System.out.println("INFO: Usuário: " + usuario.getEmail() + ", foi cadastrado!!");
+			System.out.println("INFO: Usuário: " + usuario.getLoginEmpresa() + ", foi cadastrado!!");
 		} catch (SQLException e) {
 			System.err.println("Erro ao cadastrar um novo usuário no banco de dados!");
 			e.printStackTrace();

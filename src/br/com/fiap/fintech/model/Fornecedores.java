@@ -14,14 +14,14 @@ public class Fornecedores {
 	private String categoriaFornecedor;
 	private boolean status;
 	private LocalDate programacaoPagamento;
-	private String historicoPagamento;
+	private String descricaoFornecedores;
 
 	public Fornecedores() {
 	}
 
 	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, Endereco endereco, int telefone,
 			String email, String categoriaFornecedor, boolean status, LocalDate programacaoPagamento,
-			String historicoPagamento) {
+			String descricaoFornecedores) {
 		super();
 		this.id = id;
 		this.contaEmpresa = contaEmpresa;
@@ -33,7 +33,7 @@ public class Fornecedores {
 		this.categoriaFornecedor = categoriaFornecedor;
 		this.status = status;
 		this.programacaoPagamento = programacaoPagamento;
-		this.historicoPagamento = historicoPagamento;
+		this.descricaoFornecedores = descricaoFornecedores;
 	}
 
 	public int getId() {
@@ -116,12 +116,12 @@ public class Fornecedores {
 		this.programacaoPagamento = programacaoPagamento;
 	}
 
-	public String getHistoricoPagamento() {
-		return historicoPagamento;
+	public String getDescricaoFornecedores() {
+		return descricaoFornecedores;
 	}
 
-	public void setHistoricoPagamento(String historicoPagamento) {
-		this.historicoPagamento = historicoPagamento;
+	public void setDescricaoFornecedores(String descricaoFornecedores) {
+		this.descricaoFornecedores = descricaoFornecedores;
 	}
 
 	@Override
@@ -129,7 +129,6 @@ public class Fornecedores {
 		return "Fornecedores [id=" + id + ", contaEmpresa=" + contaEmpresa + ", nome=" + nome + ", cnpj=" + cnpj
 				+ ", endereco=" + endereco + ", telefone=" + telefone + ", email=" + email + ", categoriaFornecedor="
 				+ categoriaFornecedor + ", status=" + status + ", programacaoPagamento=" + programacaoPagamento
-				+ ", historicoPagamento=" + historicoPagamento + "]";
+				+ ", descricaoFornecedores=" + descricaoFornecedores + "]";
 	}
-
 }
