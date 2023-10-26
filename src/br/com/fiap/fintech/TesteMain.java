@@ -15,16 +15,15 @@ import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 public class TesteMain {
 
 	public static void main(String[] args) throws SQLException {
-//		final String INFO = "INFO: ";
 
+		SaldoDAO saldoDao = new SaldoDAO();
 		UsuarioDAO usuarioDao = new UsuarioDAO();
 		ContaEmpresaDAO contaEmpresaDao = new ContaEmpresaDAO();
 		
 		Usuario usuario = usuarioDao.getById(21);
 
 		System.out.println("*** Conta Empresa ***");
-		ContaEmpresa contaEmpresa = new ContaEmpresa(2, usuario, "101", TipoContaEnum.CONTA_PREMIUM, true,
-				LocalDate.now());
+		ContaEmpresa contaEmpresa = new ContaEmpresa(2, usuario, "101", TipoContaEnum.CONTA_PREMIUM, true, LocalDate.now());
 		contaEmpresaDao.adicionar(contaEmpresa);
 		
 		System.out.println("\nListando todas contas empresas registradas:");
@@ -33,16 +32,9 @@ public class TesteMain {
 		}
 
 		System.out.println("\n*** Saldo ***");
-		Saldo saldo = new Saldo();
-		saldo.setId(13);
-		saldo.setContaEmpresa(contaEmpresa);
-		saldo.setSaldoAtual(200);
-		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
-		saldo.setDataAtualizacao(LocalDate.now());
-
-		SaldoDAO saldoDao = new SaldoDAO();
+		Saldo saldo = new Saldo(1, contaEmpresa, 300.0, LocalDate.now(),TipoMoedaEnum.EURO);
 		saldoDao.adicionar(saldo);
-		
+
 		System.out.println("\nListando todos os Saldos registrados:");
 		for (Saldo saldoLista : saldoDao.getAll()) {
 			System.out.println(saldoLista);
