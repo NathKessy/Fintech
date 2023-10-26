@@ -32,7 +32,7 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

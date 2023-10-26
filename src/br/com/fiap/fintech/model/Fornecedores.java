@@ -8,7 +8,7 @@ public class Fornecedores {
 	private ContaEmpresa contaEmpresa;
 	private String nome;
 	private String cnpj;
-	private String endereco;
+	private Endereco endereco;
 	private int telefone;
 	private String email;
 	private String categoriaFornecedor;
@@ -19,7 +19,7 @@ public class Fornecedores {
 	public Fornecedores() {
 	}
 
-	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, String endereco, int telefone,
+	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, Endereco endereco, int telefone,
 			String email, String categoriaFornecedor, boolean status, LocalDate programacaoPagamento,
 			String historicoPagamento) {
 		super();
@@ -68,11 +68,11 @@ public class Fornecedores {
 		this.cnpj = cnpj;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
@@ -131,4 +131,5 @@ public class Fornecedores {
 				+ categoriaFornecedor + ", status=" + status + ", programacaoPagamento=" + programacaoPagamento
 				+ ", historicoPagamento=" + historicoPagamento + "]";
 	}
+
 }
