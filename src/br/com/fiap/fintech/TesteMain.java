@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import br.com.fiap.fintech.dao.ContaEmpresaDAO;
+import br.com.fiap.fintech.dao.EmpresaDAO;
 import br.com.fiap.fintech.dao.FornecedoresDAO;
 import br.com.fiap.fintech.dao.InvestimentosDAO;
 import br.com.fiap.fintech.dao.ReceitaDAO;
@@ -28,10 +29,12 @@ public class TesteMain {
 
 		UsuarioDAO usuarioDao = new UsuarioDAO();
 		ContaEmpresaDAO contaEmpresaDao = new ContaEmpresaDAO();
-
+		EmpresaDAO empresaDao = new EmpresaDAO();
+		
 		Usuario usuario = new Usuario();
 		usuario.setEmail("dias.thyala@gmail.com");
 		usuario.setLoginEmpresa("Thyala");
+		usuario.setEmpresa(empresaDao.getById(1));
 		usuario.setSenha("15975");
 
 		usuarioDao.adicionar(usuario);
@@ -41,6 +44,11 @@ public class TesteMain {
 		ContaEmpresa contaEmpresa = new ContaEmpresa(2, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
 				LocalDate.now());
 		contaEmpresaDao.adicionar(contaEmpresa);
+		
+		System.out.println("\nListando todas contas empresas registradas:");
+		for (ContaEmpresa contEmpresa : contaEmpresaDao.getAll()) {
+			System.out.println(contEmpresa);
+		}
 
 		Saldo saldo = new Saldo();
 		saldo.setId(13);
@@ -71,7 +79,7 @@ public class TesteMain {
 		investiDao.adicionar(investimento);
 		
 		Fornecedores forncedores = new Fornecedores(1, contaEmpresa, "Lucas Silva", "12.345.678/00001-10", "Japão Liberdade",
-				"(11)4002-8922", "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now(), null);
+				140028922, "lucasfodase@live.com", "Fornecedor de tecido", true, LocalDate.now(), "Pagamentos Loja Animex");
 		
 		FornecedoresDAO fornecedoresDao = new FornecedoresDAO();
 		fornecedoresDao.adicionar(forncedores);

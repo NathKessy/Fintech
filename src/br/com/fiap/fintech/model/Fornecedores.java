@@ -9,7 +9,7 @@ public class Fornecedores {
 	private String nome;
 	private String cnpj;
 	private String endereco;
-	private String telefone;
+	private int telefone;
 	private String email;
 	private String categoriaFornecedor;
 	private boolean status;
@@ -19,7 +19,7 @@ public class Fornecedores {
 	public Fornecedores() {
 	}
 
-	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, String endereco, String telefone,
+	public Fornecedores(int id, ContaEmpresa contaEmpresa, String nome, String cnpj, String endereco, int telefone,
 			String email, String categoriaFornecedor, boolean status, LocalDate programacaoPagamento,
 			String historicoPagamento) {
 		super();
@@ -76,11 +76,11 @@ public class Fornecedores {
 		this.endereco = endereco;
 	}
 
-	public String getTelefone() {
+	public int getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
 
