@@ -1,11 +1,11 @@
 -- Drop todas as tabelas do banco
+DROP TABLE t_conta_empresa cascade constraints;
 DROP TABLE t_cidade cascade constraints;
 DROP TABLE t_pais cascade constraints;
 DROP TABLE t_estado cascade constraints;
 DROP TABLE t_endereco cascade constraints;
 DROP TABLE t_comprov cascade constraints;
 DROP TABLE t_comprov_socios cascade constraints;
-DROP TABLE t_conta_empresa cascade constraints;
 DROP TABLE t_doc_socios cascade constraints;
 DROP TABLE t_empresa cascade constraints;
 DROP TABLE t_endereco_empresa cascade constraints;
@@ -18,9 +18,13 @@ DROP TABLE t_usuario cascade constraints;
 
 -- Drop sequencias
 DROP SEQUENCE SQ_FINTECH;
+DROP SEQUENCE SQ_ENDERECO;
 
 -- Criação de sequencias 
 CREATE SEQUENCE SQ_FINTECH INCREMENT BY 1 MAXVALUE 9999999999999999999999999999 MINVALUE 1 CACHE 20;
+CREATE SEQUENCE SQ_ENDERECO INCREMENT BY 1 MAXVALUE 9999999999999999999999999999 MINVALUE 1 CACHE 20;
+CREATE SEQUENCE SQ_EMPRESA INCREMENT BY 1 MAXVALUE 9999999999999999999999999999 MINVALUE 1 CACHE 20;
+CREATE SEQUENCE SQ_USUARIO INCREMENT BY 1 MAXVALUE 9999999999999999999999999999 MINVALUE 1 CACHE 20;
 
 
 -- Criação entidades 
@@ -77,8 +81,7 @@ ALTER TABLE t_doc_socios ADD CONSTRAINT pk_t_doc_socios PRIMARY KEY ( id_socios 
 
 CREATE TABLE t_empresa (
     id_empresa             INTEGER NOT NULL,
-    t_doc_socios_id_socios INTEGER NOT NULL,
-    t_usuario_id_usuario   INTEGER NOT NULL,
+    t_doc_socios_id_socios INTEGER  NULL,
     razao_social           VARCHAR2(30) NOT NULL,
     nome_fantasia          VARCHAR2(50) NOT NULL,
     cnpj                   VARCHAR2(14) NOT NULL,
@@ -86,7 +89,7 @@ CREATE TABLE t_empresa (
     cep                    VARCHAR2(8) NOT NULL,
     telefone               VARCHAR2(9) NOT NULL,
     email                  VARCHAR2(50) NOT NULL,
-    endereco               VARCHAR2(50) NOT NULL,
+    endereco               INTEGER NULL,
     faturamento            NUMBER(38, 2) NOT NULL
 );
 
@@ -107,15 +110,15 @@ ALTER TABLE t_endereco
     ADD CONSTRAINT pk_t_endereco PRIMARY KEY ( id_endereco);
 
 CREATE TABLE t_endereco_empresa (
-    t_endereco_id_endereco        INTEGER NOT NULL,
-    t_endereco_t_estado_id_estado INTEGER NOT NULL,
-    t_endereco_t_cidade_id_cidade INTEGER NOT NULL,
-    t_endereco_t_pais_id_pais     INTEGER NOT NULL,
-    t_empresa_id_empresa          INTEGER NOT NULL
+    t_endereco_id_endereco        INTEGER NULL,
+    t_endereco_t_estado_id_estado INTEGER NULL,
+    t_endereco_t_cidade_id_cidade INTEGER NULL,
+    t_endereco_t_pais_id_pais     INTEGER NULL,
+    t_empresa_id_empresa          INTEGER NULL
 );
 
-ALTER TABLE t_endereco_empresa
-    ADD CONSTRAINT pk_t_endereco_empresa PRIMARY KEY ( t_endereco_id_endereco);
+-- ALTER TABLE t_endereco_empresa
+--     ADD CONSTRAINT pk_t_endereco_empresa PRIMARY KEY ( t_endereco_id_endereco);
 
 CREATE TABLE t_estado (
     id_estado   INTEGER NOT NULL,
@@ -129,7 +132,7 @@ CREATE TABLE t_fornecedores (
     id_fornecedores          INTEGER NOT NULL,
     t_conta_empresa_id_conta INTEGER NOT NULL,
     nome                     VARCHAR2(30) NOT NULL,
-    cnpj                     VARCHAR2(14) NOT NULL,
+    cnpj                     VARCHAR2(20) NOT NULL,
     endereco                 VARCHAR2(50) NOT NULL,
     telefone                 NUMBER(11) NOT NULL,
     email                    VARCHAR2(50) NOT NULL,
@@ -151,7 +154,6 @@ CREATE TABLE t_investimentos (
     data_resgate             DATE NOT NULL,
     descricao_invest         VARCHAR2(50) NOT NULL,
     status                   VARCHAR2(20) NOT NULL,
-    hist_invest              VARCHAR2(20) NOT NULL,
     data_registro            DATE NOT NULL
 );
 
@@ -275,11 +277,6 @@ ALTER TABLE t_conta_empresa
     ADD CONSTRAINT fk_id_usuario FOREIGN KEY ( t_usuario_id_usuario )
         REFERENCES t_usuario ( id_usuario );
 
-ALTER TABLE t_empresa
-    ADD CONSTRAINT fk_id_usuarios FOREIGN KEY ( t_usuario_id_usuario )
-        REFERENCES t_usuario ( id_usuario );
-
-COMMIT;
 
 -- Insert registros para relacionamentos 
 INSERT INTO T_PAIS (id_pais, nome_pais, sigla)VALUES (1, 'Brasil', 'BR');

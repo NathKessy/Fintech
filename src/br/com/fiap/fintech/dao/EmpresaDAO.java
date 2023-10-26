@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fiap.fintech.model.DocumentosSocios;
 import br.com.fiap.fintech.model.Empresa;
+import br.com.fiap.fintech.model.Endereco;
 
 
 public class EmpresaDAO {
@@ -20,23 +20,23 @@ public class EmpresaDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO T_EMPRESA (id_empresa, t_doc_socios_id_socios, razao_social, nome_fantasia, cnpj, capital_emp, cep, telefone, email, endereco, faturamento)\r\n"
-					+ "    VALUES (SQ_FINTECH.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_EMPRESA.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
-			stmt.setObject(1, empresa.getDocumentosSocios());
-			stmt.setString(2, empresa.getRazaoSocial());
-			stmt.setString(3, empresa.getNomeFantasia());
-			stmt.setString(4, empresa.getCnpj());
-			stmt.setDouble(5, empresa.getCapital_empresa());
-			stmt.setString(6, empresa.getCep());
-			stmt.setString(7, empresa.getTelefone());
-			stmt.setString(8, empresa.getEmail());
-			stmt.setString(9, empresa.getEndereco());
-			stmt.setDouble(10, empresa.getFaturamento());
+//			stmt.setObject(1, empresa.getDocumentosSocios().getId());
+			stmt.setString(1, empresa.getRazaoSocial());
+			stmt.setString(2, empresa.getNomeFantasia());
+			stmt.setString(3, empresa.getCnpj());
+			stmt.setDouble(4, empresa.getCapital_empresa());
+			stmt.setString(5, empresa.getCep());
+			stmt.setString(6, empresa.getTelefone());
+			stmt.setString(7, empresa.getEmail());
+			stmt.setObject(8, empresa.getEndereco().getId());
+			stmt.setDouble(9, empresa.getFaturamento());
 			
 			stmt.executeUpdate();
 
-			System.out.println("INFO: Empresa " + empresa.getTelefone() + " cadastrado!!");
+			System.out.println("INFO: Empresa " + empresa.getNomeFantasia() + " cadastrado!!");
 			
 		} catch (SQLException e) {
 			System.err.println("Erro ao cadastrar um dado da Empresa no banco de dados!");
@@ -61,19 +61,21 @@ public class EmpresaDAO {
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				int id = rs.getInt("ID_USUARIO");
-				DocumentosSocios documentosSocios = (DocumentosSocios) rs.getObject("T_DOC_SOCIOS_ID_DOC_SOCIOS");
+				int id = rs.getInt("ID_EMPRESA"); 
+//				DocumentosSocios idDocumentosSocios = (DocumentosSocios) rs.getObject("T_DOC_SOCIOS_ID_DOC_SOCIOS");
 				String razaoSocial = rs.getString("RAZAO_SOCIAL");
 				String nomeFantasia = rs.getString("NOME_FANTASIA");
 				String cnpj = rs.getString("CNPJ");
-				Double capital_empresa = rs.getDouble("CAPITAL_EMPRESA");
+				Double capital_empresa = rs.getDouble("CAPITAL_EMP");
 				String cep = rs.getString("CEP");
 				String telefone = rs.getString("TELEFONE");
 				String email = rs.getString("EMAIL");
-				String endereco = rs.getString("ENDERECO");
+				int idEndereco = rs.getInt("ENDERECO");
 				Double faturamento = rs.getDouble("FATURAMENTO");
 				
-				Empresa empresa = new Empresa(id, documentosSocios, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
+				Endereco endereco = new Endereco(idEndereco); // Criar getById
+				
+				Empresa empresa = new Empresa(id, null, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
 				lista.add(empresa);
 			}
 

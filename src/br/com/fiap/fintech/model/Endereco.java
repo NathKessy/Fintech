@@ -13,6 +13,11 @@ public class Endereco {
 
 	public Endereco() {
 	}
+	
+	public Endereco(int id) {
+		super();
+		this.id = id;
+	}
 
 	public Endereco(int id, Estado estado, Cidade cidade, Pais pais, String logradouro, String bairro, String numero,
 			String cep) {

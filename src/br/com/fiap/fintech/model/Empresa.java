@@ -11,7 +11,7 @@ public class Empresa {
 	private String cep;
 	private String telefone;
 	private String email;
-	private String endereco;
+	private Endereco endereco;
 	private double faturamento;
 
 	public Empresa() {
@@ -112,11 +112,11 @@ public class Empresa {
 		this.email = email;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
@@ -136,6 +136,4 @@ public class Empresa {
 				+ ", faturamento=" + faturamento + "]";
 	}
 
-
-	
 }
