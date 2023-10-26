@@ -45,10 +45,12 @@ public class UsuarioDAO {
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 		ResultSet rs = null;
+		
+		EmpresaDAO empresaDao = new EmpresaDAO();
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_usuario";
+			String sql = "select * from t_usuario order by id_usuario asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
@@ -59,7 +61,7 @@ public class UsuarioDAO {
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
 				
-				Empresa empresa = new Empresa(idEmpresa);
+				Empresa empresa = empresaDao.getById(idEmpresa);
 
 				Usuario usuario = new Usuario(id, empresa, login, email, senha);
 				lista.add(usuario);
@@ -82,6 +84,7 @@ public class UsuarioDAO {
 		Connection conexao = null;
 		ResultSet rs = null;
 
+		EmpresaDAO empresaDao = new EmpresaDAO();
 		Usuario usuario = null;
 
 		try {
@@ -97,8 +100,8 @@ public class UsuarioDAO {
 				String email = rs.getString("EMAIL");
 				String senha = rs.getString("SENHA");
 				
-				Empresa empresa = new Empresa(idEmpresa);
-
+				Empresa empresa = empresaDao.getById(idEmpresa);
+				
 				usuario = new Usuario(id, empresa, login, email, senha);
 			}
 
