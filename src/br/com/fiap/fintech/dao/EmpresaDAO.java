@@ -23,7 +23,6 @@ public class EmpresaDAO {
 					+ "    VALUES (SQ_EMPRESA.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
-//			stmt.setObject(1, empresa.getDocumentosSocios().getId());
 			stmt.setString(1, empresa.getRazaoSocial());
 			stmt.setString(2, empresa.getNomeFantasia());
 			stmt.setString(3, empresa.getCnpj());
@@ -64,7 +63,6 @@ public class EmpresaDAO {
 			
 			while (rs.next()) {
 				int id = rs.getInt("ID_EMPRESA"); 
-//				DocumentosSocios idDocumentosSocios = (DocumentosSocios) rs.getObject("T_DOC_SOCIOS_ID_DOC_SOCIOS");
 				String razaoSocial = rs.getString("RAZAO_SOCIAL");
 				String nomeFantasia = rs.getString("NOME_FANTASIA");
 				String cnpj = rs.getString("CNPJ");
@@ -76,7 +74,7 @@ public class EmpresaDAO {
 				Double faturamento = rs.getDouble("FATURAMENTO");
 				
 				Endereco endereco = enderecoDao.getById(idEndereco);
-				Empresa empresa = new Empresa(id, null, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
+				Empresa empresa = new Empresa(id, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
 				lista.add(empresa);
 			}
 
@@ -110,7 +108,6 @@ public class EmpresaDAO {
 			
 			if (rs.next()) {
 				int id = rs.getInt("ID_EMPRESA"); 
-//				DocumentosSocios idDocumentosSocios = (DocumentosSocios) rs.getObject("T_DOC_SOCIOS_ID_DOC_SOCIOS");
 				String razaoSocial = rs.getString("RAZAO_SOCIAL");
 				String nomeFantasia = rs.getString("NOME_FANTASIA");
 				String cnpj = rs.getString("CNPJ");
@@ -122,7 +119,7 @@ public class EmpresaDAO {
 				Double faturamento = rs.getDouble("FATURAMENTO");
 				
 				Endereco endereco = enderecoDao.getById(idEndereco);
-				empresa = new Empresa(id, null, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
+				empresa = new Empresa(id, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
 			}
 
 		} catch (SQLException e) {

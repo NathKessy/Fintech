@@ -29,7 +29,7 @@ public class TesteThyalaEmpresaUsuario {
 		enderecoDao.adicionar(endereco);
 		
 		System.out.println("\n*** Empresa ***");
-		Empresa empresa = new Empresa(1, null, "Simba Investimetos", "Simba Invest", "12345678", 10000.0, "12345678", "40028922", "simba@invest.com", endereco, 10000.0);
+		Empresa empresa = new Empresa(1, "Simba Investimetos", "Simba Invest", "12345678", 10000.0, "12345678", "40028922", "simba@invest.com", endereco, 10000.0);
 		empresaDao.adicionar(empresa);
 		
 		System.out.println("\nExibindo todas as Empresas cadastrados: ");

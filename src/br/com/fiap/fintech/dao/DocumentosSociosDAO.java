@@ -26,7 +26,7 @@ public class DocumentosSociosDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_doc_socios (ID_SOCIOS, T_EMPRESA_ID_EMPRESA, NOME, RG, CPF, DATA_NASC, ESTADO_CIVIL, NACIONALIDADE, ENDERECO)"
-					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_DOC_SOCIOS.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
 			stmt = conexao.prepareStatement(sql);
 			stmt.setObject(1, documentosSocios.getEmpresa().getId());
 			stmt.setString(2, documentosSocios.getNome().toString());
@@ -41,7 +41,7 @@ public class DocumentosSociosDAO {
 			
 			stmt.executeUpdate();
 			
-			System.out.println("INFO: " + documentosSocios.getNome() + ", foi cadastrado!!");
+			System.out.println("Documento socios: " + documentosSocios.getNome() + ", foi cadastrado!!");
 			
 		} catch (SQLException erro){
 			System.err.println("Erro ao cadastrar o Documento Socios atual no banco de dados!");
@@ -61,10 +61,12 @@ public class DocumentosSociosDAO {
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 		ResultSet rs = null;
+		
+		EmpresaDAO empresaDao = new EmpresaDAO();
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_doc_socios";
+			String sql = "select * from t_doc_socios order by id_socios asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
@@ -81,8 +83,8 @@ public class DocumentosSociosDAO {
 								
 				@SuppressWarnings("deprecation")
 				LocalDate data = LocalDate.of(dataNascimento.getYear(), dataNascimento.getMonth(), dataNascimento.getDay());
-				Empresa empresa = new Empresa(idEmpresa);
 				
+				Empresa empresa = empresaDao.getById(idEmpresa);
 				
 				DocumentosSocios documentossocios = new DocumentosSocios(id, empresa, nome, rg, cpf, data, estadoCivil, nacionalidade, endereco);
 				lista.add(documentossocios);
