@@ -27,7 +27,7 @@ public class ReceitaDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO t_receita (ID_RECEITA, T_CONTA_EMPRESA_ID_CONTA, NOME_TRANSACAO, TIPO_TRANSACAO, DESCRICAO_TRANSACAO, DATA_TRANSACAO, DATA_REGISTRO)"
-					+ " VALUES (sq_fintech.nextval, ?, ?, ?, ?, ?, ?)";
+					+ " VALUES (sq_receita.nextval, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, receita.getContaEmpresa().getId());
@@ -60,9 +60,11 @@ public class ReceitaDAO {
 		Connection conexao = null;
 		ResultSet rs = null;
 
+		ContaEmpresaDAO contaEmpresaDAO = new ContaEmpresaDAO();
+		
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_receita";
+			String sql = "select * from t_receita order by id_receita asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
@@ -77,8 +79,11 @@ public class ReceitaDAO {
 								
 				@SuppressWarnings("deprecation")
 				LocalDate dateTransacao = LocalDate.of(dataTransacaodb.getYear(), dataTransacaodb.getMonth(), dataTransacaodb.getDay());
+				
+				@SuppressWarnings("deprecation")
 				LocalDate dateRegistro = LocalDate.of(dataRegistrodb.getYear(), dataRegistrodb.getMonth(), dataRegistrodb.getDay());
-				ContaEmpresa contaEmpresa = new ContaEmpresa(idContaEmpresa);
+				
+				ContaEmpresa contaEmpresa = contaEmpresaDAO.getById(idContaEmpresa);
 				
 				Receita receita = new Receita(id, contaEmpresa, nomeTransacao, TipoTransacaoEnum.valueOf(tipoTransacao), descricaoTransacao, dateTransacao, dateRegistro);
 				lista.add(receita);
@@ -86,7 +91,7 @@ public class ReceitaDAO {
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao listar endereços ao banco de dados!");
+			System.err.println("Erro ao listar receitas ao banco de dados!");
 			e.printStackTrace();
 		} finally {
 			rs.close();

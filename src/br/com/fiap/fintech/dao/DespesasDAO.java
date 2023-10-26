@@ -20,24 +20,25 @@ public class DespesasDAO {
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_despesas (ID_DESPESA, T_CONTA_EMPRESA_ID_CONTA, DATA_REGISTRO, DESC_DESPESAS, QUANTIDADE, DESTINO, CUSTO)\r\n"
-					+ "    VALUES (sq_fintech.nextval, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO t_despesas (ID_DESPESA, T_CONTA_EMPRESA_ID_CONTA, DATA_REGISTRO, DESC_DESPESAS, QUANTIDADE, DESTINO, CUSTO)"
+					+ "    VALUES (sq_despesa.nextval, ?, ?, ?, ?, ?, ?)";
 
 			stmt = conexao.prepareStatement(sql);
 			stmt.setObject(1, despesas.getContaEmpresa().getId());
-			stmt.setString(2, despesas.getDescricaoDespesas());
-			stmt.setDouble(3, despesas.getQuantidade());
-			stmt.setString(4, despesas.getDestino());
-			stmt.setDouble(5, despesas.getCustos());
 			
 			Date date = Date.valueOf(despesas.getDataRegistro());
-			stmt.setDate(6, date);
-
+			stmt.setDate(2, date);
+			
+			stmt.setString(3, despesas.getDescricaoDespesas());
+			stmt.setInt(4, despesas.getQuantidade());
+			stmt.setString(5, despesas.getDestino());
+			stmt.setDouble(6, despesas.getCustos());
+			
 			stmt.executeUpdate();
 
-			System.out.println("INFO: A despesa atual teve o destino: " + despesas.getDestino() + ", foi cadastrado!!");
+			System.out.println("INFO: " + despesas.getDestino() + ", foi cadastrado!!");
 		} catch (SQLException e) {
-			System.err.println("Erro ao cadastrar um novo destino de despesa no banco de dados!");
+			System.err.println("Erro ao cadastrar despesa no banco de dados!");
 			e.printStackTrace();
 		} finally {
 			stmt.close();
@@ -50,32 +51,36 @@ public class DespesasDAO {
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 		ResultSet rs = null;
+		
+		ContaEmpresaDAO contaEmpresaDAO = new ContaEmpresaDAO();
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "select * from t_despesas";
+			String sql = "select * from t_despesas order by id_despesa asc";
 			stmt = conexao.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
+			
 			while (rs.next()) {
-				int id = rs.getInt("ID_DESPESAS");
-				int idContaEmpresa = rs.getInt("CONTA_EMPRESA");
+				int id = rs.getInt("ID_DESPESA");
+				int idContaEmpresa = rs.getInt("T_CONTA_EMPRESA_ID_CONTA");
 				Date dataRegistro = rs.getDate("DATA_REGISTRO");
 				String descricaoDespesas = rs.getString("DESC_DESPESAS");
 				int quantidade = rs.getInt("QUANTIDADE");
 				String destino = rs.getString("DESTINO");
 				Double custo = rs.getDouble("CUSTO");
 				
+				@SuppressWarnings("deprecation")
 				LocalDate localDate = LocalDate.of(dataRegistro.getYear(), dataRegistro.getMonth(), dataRegistro.getDay());
 
-				ContaEmpresa contaEmpresa = new ContaEmpresa();
+				ContaEmpresa contaEmpresa = contaEmpresaDAO.getById(idContaEmpresa);
 				Despesas despesas = new Despesas(id, contaEmpresa, localDate, descricaoDespesas, quantidade, destino, custo);
 				lista.add(despesas);
 			}
 				
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao listar destinos de despesas no banco de dados!");
+			System.err.println("Erro ao listar despesas no banco de dados!");
 			e.printStackTrace();
 		} finally {
 			rs.close();

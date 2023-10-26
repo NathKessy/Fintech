@@ -78,7 +78,7 @@ public class SaldoDAO {
 			}
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao listar usuários ao banco de dados!");
+			System.err.println("Erro ao listar saldo ao banco de dados!");
 			e.printStackTrace();
 		} finally {
 			rs.close();
