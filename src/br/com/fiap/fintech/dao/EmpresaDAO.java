@@ -20,7 +20,7 @@ public class EmpresaDAO {
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "INSERT INTO T_EMPRESA (id_empresa, t_doc_socios_id_socios, razao_social, nome_fantasia, cnpj, capital_emp, cep, telefone, email, endereco, faturamento)\r\n"
-					+ "    VALUES (SQ_FINTECH.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "    VALUES (SQ_EMPRESA.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
 //			stmt.setObject(1, empresa.getDocumentosSocios().getId());
@@ -54,6 +54,8 @@ public class EmpresaDAO {
 		Connection conexao = null;
 		ResultSet rs = null;
 		
+		EnderecoDAO enderecoDao = new EnderecoDAO();
+		
 		try {
 			conexao = Conexao.abrirConexao();
 			String sql = "select * from t_empresa";
@@ -73,8 +75,7 @@ public class EmpresaDAO {
 				int idEndereco = rs.getInt("ENDERECO");
 				Double faturamento = rs.getDouble("FATURAMENTO");
 				
-				Endereco endereco = new Endereco(idEndereco); // Criar getById
-				
+				Endereco endereco = enderecoDao.getById(idEndereco);
 				Empresa empresa = new Empresa(id, null, razaoSocial, nomeFantasia, cnpj, capital_empresa, cep, telefone, email, endereco, faturamento);
 				lista.add(empresa);
 			}
