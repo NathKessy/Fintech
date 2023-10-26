@@ -92,4 +92,47 @@ public class ContaEmpresaDAO {
 
 		return lista;
 	}
+	
+	public ContaEmpresa getById(int idEmpresa) throws SQLException {
+		PreparedStatement stmt = null;
+		Connection conexao = null;
+		ResultSet rs = null;
+		
+		ContaEmpresa contaEmpresa = null;
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+
+		try {
+			conexao = Conexao.abrirConexao();
+			String sql = "select * from t_conta_empresa where id_conta = ?";
+			stmt = conexao.prepareStatement(sql);
+			stmt.setInt(1, idEmpresa);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int id = rs.getInt("ID_CONTA");
+				int idUsuario = rs.getInt("T_USUARIO_ID_USUARIO");
+				String tipoConta = rs.getString("TIPO_CONTA");
+				boolean statusConta = rs.getBoolean("STATUS_CONTA");
+				String numeroConta = rs.getString("NUMERO_CONTA");
+				Date dataAbertura = rs.getDate("DATA_ABERTURA");
+				
+				Usuario usuario = usuarioDao.getById(idUsuario);
+
+				@SuppressWarnings("deprecation")
+				LocalDate date = LocalDate.of(dataAbertura.getYear(), dataAbertura.getMonth(), dataAbertura.getDay());
+				
+				contaEmpresa = new ContaEmpresa(id, usuario, numeroConta, TipoContaEnum.valueOf(tipoConta), statusConta, date);
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Erro ao listar usuários ao banco de dados!");
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			conexao.close();
+		}
+
+		return contaEmpresa;
+	}
 }

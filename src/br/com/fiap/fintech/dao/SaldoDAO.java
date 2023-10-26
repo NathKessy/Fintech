@@ -3,9 +3,15 @@ package br.com.fiap.fintech.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.fiap.fintech.model.ContaEmpresa;
 import br.com.fiap.fintech.model.Saldo;
+import br.com.fiap.fintech.model.enums.TipoMoedaEnum;
 
 public class SaldoDAO {
 	
@@ -38,5 +44,48 @@ public class SaldoDAO {
 			stmt.close();
 			conexao.close();
 		}
+	}
+	
+	public List<Saldo> getAll() throws SQLException {
+		List<Saldo> lista = new ArrayList<>();
+		PreparedStatement stmt = null;
+		Connection conexao = null;
+		ResultSet rs = null;
+		
+		ContaEmpresaDAO contaEmpresaDAO = new ContaEmpresaDAO();
+
+		try {
+			conexao = Conexao.abrirConexao();
+			String sql = "select * from t_saldo";
+			stmt = conexao.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("ID_SALDO");
+				int idEmpresa = rs.getInt("T_CONTA_EMPRESA_ID_CONTA");
+				int saldoAtual = rs.getInt("SALDO_ATUAL");
+				String tipoMoeda = rs.getString("TIPO_MOEDA");
+				Date dataAtualizacao = rs.getDate("DATA_ATUALIZACAO");
+				
+				ContaEmpresa contaEmpresa = contaEmpresaDAO.getById(idEmpresa);
+
+				@SuppressWarnings("deprecation")
+				LocalDate date = LocalDate.of(dataAtualizacao.getYear(), dataAtualizacao.getMonth(), dataAtualizacao.getDay());
+				
+				Saldo saldo = new Saldo(id, contaEmpresa, saldoAtual, date, TipoMoedaEnum.valueOf(tipoMoeda));
+				lista.add(saldo);
+				
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Erro ao listar usuários ao banco de dados!");
+			e.printStackTrace();
+		} finally {
+			rs.close();
+			stmt.close();
+			conexao.close();
+		}
+
+		return lista;
 	}
 }
