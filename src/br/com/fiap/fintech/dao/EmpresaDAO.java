@@ -19,8 +19,8 @@ public class EmpresaDAO {
 		
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO T_EMPRESA (id_empresa, t_doc_socios_id_socios, razao_social, nome_fantasia, cnpj, capital_emp, cep, telefone, email, endereco, faturamento)\r\n"
-					+ "    VALUES (SQ_EMPRESA.nextval, null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO T_EMPRESA (id_empresa, razao_social, nome_fantasia, cnpj, capital_emp, cep, telefone, email, endereco, faturamento)\r\n"
+					+ "    VALUES (SQ_EMPRESA.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			stmt = conexao.prepareStatement(sql);
 			stmt.setString(1, empresa.getRazaoSocial());

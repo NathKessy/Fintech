@@ -10,25 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.fintech.model.Comprovantes;
+import br.com.fiap.fintech.model.DocumentosSocios;
+import br.com.fiap.fintech.model.enums.TipoComprovanteEnum;
 
 public class ComprovantesDAO {
 
 	public void adicionar(Comprovantes comprovantes) throws SQLException {
+		if (comprovantes.getDocumentosSocios().getId() == null) {
+			System.out.println("ID não localizado na base de dados");
+			return;
+		}
+		
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 
 		try {
 			conexao = Conexao.abrirConexao();
-			String sql = "INSERT INTO t_comprov (id_comprov, endereco, data_emissao, tipo_comprov) "
-					+ "VALUES (SQ_FINTECH.NEXTVAL, ?, ?, ?)";
-
+			String sql = "INSERT INTO t_comprov (id_comprov, FK_T_COMPROV, endereco, data_emissao, tipo_comprov) "
+					+ "VALUES (SQ_FINTECH.NEXTVAL, ?, ?, ?, ?)";
 			stmt = conexao.prepareStatement(sql);
-			stmt.setString(1, comprovantes.getEndereco());
+			stmt.setObject(1, comprovantes.getDocumentosSocios().getId());
+			
+			
+			stmt.setString(2, comprovantes.getEndereco());
 
 			Date date = Date.valueOf(comprovantes.getDataEmissao());
-			stmt.setDate(2, date);
+			stmt.setDate(3, date);
 
-			stmt.setString(3, comprovantes.getTipoComprovantes());
+			stmt.setString(4, comprovantes.getTipoComprovantes().toString());
 
 			stmt.executeUpdate();
 
@@ -49,6 +58,8 @@ public class ComprovantesDAO {
 		PreparedStatement stmt = null;
 		Connection conexao = null;
 		ResultSet rs = null;
+		
+		DocumentosSociosDAO documentosSociosDAO = new DocumentosSociosDAO();
 
 		try {
 			conexao = Conexao.abrirConexao();
@@ -58,14 +69,17 @@ public class ComprovantesDAO {
 
 			while (rs.next()) {
 				int id = rs.getInt("ID_COMPROV");
+				int idDocSocios = rs.getInt("FK_T_COMPROV");
 				String endereco = rs.getString("ENDERECO");
 				Date dataEmissao = rs.getDate("DATA_EMISSAO");
-				String TipoComprovantes = rs.getString("TIPO_COMPROV");
+				String tipoComprovantes = rs.getString("TIPO_COMPROV");
 				
 				@SuppressWarnings("deprecation")
 				LocalDate data = LocalDate.of(dataEmissao.getYear(), dataEmissao.getMonth(), dataEmissao.getDay());
 				
-				Comprovantes comprovantes = new Comprovantes(id, endereco, data, TipoComprovantes);
+				DocumentosSocios documentoSocios = documentosSociosDAO.getById(idDocSocios);
+				
+				Comprovantes comprovantes = new Comprovantes(id, documentoSocios, endereco, data, TipoComprovanteEnum.valueOf(tipoComprovantes));
 				lista.add(comprovantes);
 
 			}
