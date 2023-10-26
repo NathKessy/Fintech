@@ -34,14 +34,14 @@ public class TesteMain {
 
 		usuarioDao.adicionar(usuario);
 
-		Usuario userDb = usuarioDao.getById(3);
+		Usuario userDb = usuarioDao.getById(4);
 
-		ContaEmpresa contaEmpresa = new ContaEmpresa(4, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
+		ContaEmpresa contaEmpresa = new ContaEmpresa(10, userDb, "101", TipoContaEnum.CONTA_PREMIUM, true,
 				LocalDate.now());
 		contaEmpresaDao.adicionar(contaEmpresa);
 
 		Saldo saldo = new Saldo();
-		saldo.setId(1);
+		saldo.setId(13);
 		saldo.setContaEmpresa(contaEmpresa);
 		saldo.setSaldoAtual(200);
 		saldo.setTipoMoeda(TipoMoedaEnum.DOLAR);
@@ -51,7 +51,7 @@ public class TesteMain {
 		saldoDao.adicionar(saldo);
 
 		Receita receita = new Receita();
-		receita.setId(2);
+		receita.setId(17);
 		receita.setContaEmpresa(contaEmpresa);
 		receita.setDataRegistro(LocalDate.now());
 		receita.setDataTransacao(LocalDate.now());
